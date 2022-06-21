@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:05:13 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/17 19:12:25 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:28:07 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #ifndef VECTORITERATOR_HPP
 # define VECTORITERATOR_HPP
 
-template
+template<>
 class VectorIterator<class T,class Allocator = std::allocator<T>>
 {
 public:
