@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 10:44:14 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/20 16:54:41 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/21 11:54:33 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 int main(void)
 {
+    std::string str = "kiki";
 
 // ATTENTION CE TEST FONCTIONNE SI ON DONNE AUTRE CHOSE QU'UN STRING A MAKE_PAIR
 // POUR UNE RAISON ENCORE INCONNUE
@@ -34,7 +35,7 @@ int main(void)
     std::cout << mypair.first << std::endl;
     std::cout << mypair.second << std::endl;
 // TEST 3
-    std::pair <int, std::string> p2(1, "coucou");
+    std::pair <int, std::string> p2(1, str);
     std::cout << p2.first << std::endl;
     std::cout << p2.second << std::endl;
 // TEST 4
@@ -43,7 +44,7 @@ int main(void)
     std::cout << p3.second << std::endl;
 // TEST 5
     std::pair <double, std::string> p4;
-    p4 = std::make_pair(2.3, "kiki");
+    p4 = std::make_pair(2.3, str);
     std::cout << p4.first << std::endl;
     std::cout << p4.second << std::endl;
 // TEST 6
@@ -81,7 +82,7 @@ int main(void)
     std::cout << t2.first << std::endl;
     std::cout << t2.second << std::endl;
 // TEST 3
-    ft::pair <int, std::string> t3(1, "coucou");
+    ft::pair <int, std::string> t3(1, str);
     std::cout << t3.first << std::endl;
     std::cout << t3.second << std::endl;
 // TEST 4
@@ -90,7 +91,7 @@ int main(void)
     std::cout << t4.second << std::endl;
 // TEST 5
     ft::pair <double, std::string> t5;
-    t5 = ft::make_pair(2.3, std::string("kiki"));
+    t5 = ft::make_pair(2.3, str);
     std::cout << t5.first << std::endl;
     std::cout << t5.second << std::endl;
 // TEST 6

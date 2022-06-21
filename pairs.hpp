@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 10:22:30 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/20 16:46:13 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/21 12:02:46 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,29 @@ namespace ft
     {
         
     public:
-    // Member types
+// Member types
         typedef T1 first_type;
         typedef T2 second_type;
         
-    // Member objects
+// Member objects
         T1 first;
         T2 second;
 
-    // Constructors
+// Constructors
         pair(): first(T1()), second(T2()){}
         pair(const T1& x, const T2& y): first(x), second(y){}
         template<class U, class V>
         pair(const pair<U, V> &p): first(p.first), second(p.second){}
 
-    // Destructor
+// Destructor
         ~pair(void){}
 
-    // Operators
+// Operators
         pair& operator=(const pair<T1,T2>& other)
         {if (this != &other){first = other.first;second = other.second;}return *this;}
     };
 
-    // Non-member functions
+// Non-member functions
     template <class T1, class T2>
     bool operator==(const pair<T1,T2>& x, const pair<T1,T2>& y)
     {return(x.first == y.first && x.second == y.second);}
