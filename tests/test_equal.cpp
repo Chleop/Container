@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 16:39:33 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/21 16:54:49 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:41:55 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <bits/stdc++.h>
  
-int main(void)
+int test_equal(void)
 {
     int v1[] = { 10, 20, 30, 40, 50 };
     std::vector<int> vector_1 (v1, v1 + sizeof(v1) / sizeof(int) );

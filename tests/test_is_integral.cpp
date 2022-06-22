@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 18:05:14 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/21 16:38:29 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:41:57 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int u;
 
 
 // Main a compiler AVEC LE FLAG c++98
-int main (void)
+int test_is_integral (void)
 {
     
 // // ORIGINAL WITH STD LIBRARY TESTS
@@ -69,32 +69,32 @@ int main (void)
 }
 
 // Main a compiler SANS LE FLAG C++98
-// #include <type_traits>
-// int main (void)
-// {
-//     int nb_test = 13;
-//     bool test[nb_test];
-//     test[0] = (std::is_integral<char>::value) == (ft::is_integral<char>::value);
-//     test[1] = (std::is_integral<int>::value) == (ft::is_integral<int>::value);
-//     test[2] = (std::is_integral<float>::value) == (ft::is_integral<float>::value);
-//     test[3] = (std::is_integral<double>::value) == (ft::is_integral<double>::value);
-//     test[4] = (std::is_integral<std::string>::value) == (ft::is_integral<std::string>::value);
-//     test[5] = (std::is_integral<const char>::value) == (ft::is_integral<const char>::value);
-//     test[6] = (std::is_integral<const int>::value) == (ft::is_integral<const int>::value);
-//     test[7] = (std::is_integral<const float>::value) == (ft::is_integral<const float>::value);
-//     test[8] = (std::is_integral<const double>::value) == (ft::is_integral<const double>::value);
-//     test[9] = (std::is_integral<const std::string>::value) == (ft::is_integral<const std::string>::value);
-//     test[10] = (std::is_integral<A>::value) == (ft::is_integral<A>::value);
-//     test[11] = (std::is_integral<E>::value) == (ft::is_integral<E>::value);
-//     test[12] = (std::is_integral<U>::value) == (ft::is_integral<U>::value);
+#include <type_traits>
+int test_is_integral (void)
+{
+    int nb_test = 13;
+    bool test[nb_test];
+    test[0] = (std::is_integral<char>::value) == (ft::is_integral<char>::value);
+    test[1] = (std::is_integral<int>::value) == (ft::is_integral<int>::value);
+    test[2] = (std::is_integral<float>::value) == (ft::is_integral<float>::value);
+    test[3] = (std::is_integral<double>::value) == (ft::is_integral<double>::value);
+    test[4] = (std::is_integral<std::string>::value) == (ft::is_integral<std::string>::value);
+    test[5] = (std::is_integral<const char>::value) == (ft::is_integral<const char>::value);
+    test[6] = (std::is_integral<const int>::value) == (ft::is_integral<const int>::value);
+    test[7] = (std::is_integral<const float>::value) == (ft::is_integral<const float>::value);
+    test[8] = (std::is_integral<const double>::value) == (ft::is_integral<const double>::value);
+    test[9] = (std::is_integral<const std::string>::value) == (ft::is_integral<const std::string>::value);
+    test[10] = (std::is_integral<A>::value) == (ft::is_integral<A>::value);
+    test[11] = (std::is_integral<E>::value) == (ft::is_integral<E>::value);
+    test[12] = (std::is_integral<U>::value) == (ft::is_integral<U>::value);
 
-//     for(int i=0;i<nb_test;i++)
-//     {
-//         if(test[i] == true)
-//             std::cout << "\033[32m[   PASSED   ]\033[37m   Test " << i << std::endl;
-//         else
-//             std::cout << "\033[31m[!!!FAILED!!!]\033[37m   Test " << i << std::endl;
-//     }
+    for(int i=0;i<nb_test;i++)
+    {
+        if(test[i] == true)
+            std::cout << "\033[32m[   PASSED   ]\033[37m   Test " << i << std::endl;
+        else
+            std::cout << "\033[31m[!!!FAILED!!!]\033[37m   Test " << i << std::endl;
+    }
 
-//     return 0;
-// }
+    return 0;
+}
