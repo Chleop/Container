@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:42:14 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/22 15:41:53 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/23 16:48:44 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int main (void)
 {
-    // std::cout << std::endl << "\033[32m### TESTING MY FT LIBRARY\033[37m" << std::endl;
     test_pairs();
     return 0;
 }
