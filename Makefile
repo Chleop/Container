@@ -6,7 +6,7 @@
 #    By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 12:05:37 by cproesch          #+#    #+#              #
-#    Updated: 2022/06/22 18:17:32 by cproesch         ###   ########.fr        #
+#    Updated: 2022/06/23 15:46:50 by cproesch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,6 @@ NAME2	=	containers_std
 ################################################################################
 #									FILES									   #
 ################################################################################
-
-# T_DIR	=	tests/
 
 SRCS1	=	tests/main.cpp tests/test_pairs.cpp
 SRCS2	=	tests/main_std.cpp tests/test_pairs.cpp
@@ -42,33 +40,31 @@ IFLAGS		=	-Iincludes -I.
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 -g
 
 
+
 ################################################################################
 #									RULES									   #
 ################################################################################
 
-all:	$(NAME1)
-
-%.o:		%.cpp
-ifeq ($(LIB), STD)
-	$(CXX) -c $< $(CXXFLAGS) -DLIB=1 -o $@ $(IFLAGS)
+all:	$(OBJS1) $(OBJS2)
+ifeq ($(LIB), FT)
+	@echo FT
+	make fclean
+	$(CXX) $(OBJS1) -o $(NAME1)
 else
-	$(CXX) -c $< $(CXXFLAGS) -o $@ $(IFLAGS)
+	@echo STD
+	make fclean
+	$(CXX) -DLIB=1 $(OBJS2) -o $(NAME2)
 endif
 
-$(NAME1):	$(OBJS1)
-			@echo FT
-			$(CXX) $(OBJS1) -o $(NAME1)
-
-$(NAME2):	$(OBJS2)
-			@echo STD
-			$(CXX) -DLIB=1 $(OBJS2) -o $(NAME2) 
-
-ft:			$(NAME1)
-
-std:		$(NAME2)
+%.o:		%.cpp
+ifeq ($(LIB), FT)
+	$(CXX) -c $< $(CXXFLAGS) -o $@ $(IFLAGS)
+else
+	$(CXX) -c $< $(CXXFLAGS) -DLIB=1 -o $@ $(IFLAGS)
+endif
 			
 clean:		
-			$(RM) $(OBJS1) $(OBJS2) file*.txt
+			$(RM) $(OBJS1) $(OBJS2) file*
 
 fclean:		clean
 			$(RM) $(NAME1) $(NAME2)
