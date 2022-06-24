@@ -6,7 +6,7 @@
 #    By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 12:05:37 by cproesch          #+#    #+#              #
-#    Updated: 2022/06/24 12:07:03 by cproesch         ###   ########.fr        #
+#    Updated: 2022/06/24 12:08:14 by cproesch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ objs/std_out/%.o:	%.cpp
 					$(CXX) -c $< $(CXXFLAGS) -o $@ $(IFLAGS)
 			
 clean:		
-					$(RM) $(OBJS_FT) $(OBJS_STD) file* objs/ft_out/ objs/std_out/ objs/
+					$(RM) $(OBJS_FT) $(OBJS_STD) file* objs/
 
 fclean:				clean
 					$(RM) $(NAME_FT) $(NAME_STD)
