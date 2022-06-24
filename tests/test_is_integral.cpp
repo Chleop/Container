@@ -6,12 +6,12 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 18:05:14 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/22 15:41:57 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/24 11:57:48 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "../is_integral.hpp"
+#include "../includes/is_integral.hpp"
 
 // ATTENTION : LES TESTS SUR LA STD NE PASSENT PAS AVEC LE FLAG C++98!
 
@@ -30,47 +30,47 @@ int u;
 
 
 // Main a compiler AVEC LE FLAG c++98
-int test_is_integral (void)
-{
+// int test_is_integral (void)
+// {
     
-// // ORIGINAL WITH STD LIBRARY TESTS
-//     std::cout << "\033[32m### TESTING STANDARD LIBRARY\033[37m" << std::endl;
-//     std::cout << "char: " << std::is_integral<char>::value << std::endl;
-//     std::cout << "int: " << std::is_integral<int>::value << std::endl;
-//     std::cout << "float: " << std::is_integral<float>::value << std::endl;
-//     std::cout << "double: " << std::is_integral<double>::value << std::endl;
-//     std::cout << "std::string: " << std::is_integral<std::string>::value << std::endl;
-//     std::cout << "const char: " << std::is_integral<const char>::value << std::endl;
-//     std::cout << "const int: " << std::is_integral<const int>::value << std::endl;
-//     std::cout << "const float: " << std::is_integral<const float>::value << std::endl;
-//     std::cout << "const double: " << std::is_integral<const double>::value << std::endl;
-//     std::cout << "const std::string: " << std::is_integral<const std::string>::value << std::endl;
-//     std::cout << "Struct A: " << std::is_integral<A>::value << std::endl;
-//     std::cout << "Enum E: " << std::is_integral<E>::value << std::endl;
-//     std::cout << "Union U: " << std::is_integral<U>::value << std::endl;
+// // // ORIGINAL WITH STD LIBRARY TESTS
+// //     std::cout << "\033[32m### TESTING STANDARD LIBRARY\033[37m" << std::endl;
+// //     std::cout << "char: " << std::is_integral<char>::value << std::endl;
+// //     std::cout << "int: " << std::is_integral<int>::value << std::endl;
+// //     std::cout << "float: " << std::is_integral<float>::value << std::endl;
+// //     std::cout << "double: " << std::is_integral<double>::value << std::endl;
+// //     std::cout << "std::string: " << std::is_integral<std::string>::value << std::endl;
+// //     std::cout << "const char: " << std::is_integral<const char>::value << std::endl;
+// //     std::cout << "const int: " << std::is_integral<const int>::value << std::endl;
+// //     std::cout << "const float: " << std::is_integral<const float>::value << std::endl;
+// //     std::cout << "const double: " << std::is_integral<const double>::value << std::endl;
+// //     std::cout << "const std::string: " << std::is_integral<const std::string>::value << std::endl;
+// //     std::cout << "Struct A: " << std::is_integral<A>::value << std::endl;
+// //     std::cout << "Enum E: " << std::is_integral<E>::value << std::endl;
+// //     std::cout << "Union U: " << std::is_integral<U>::value << std::endl;
     
-// COPY WITH MY FT LIBRARY TESTS
-    std::cout << std::endl << "\033[32m### TESTING MY FT LIBRARY\033[37m" << std::endl;
-    std::cout << "char: " << ft::is_integral<char>::value << std::endl;
-    std::cout << "int: " << ft::is_integral<int>::value << std::endl;
-    std::cout << "float: " << ft::is_integral<float>::value << std::endl;
-    std::cout << "double: " << ft::is_integral<double>::value << std::endl;
-    std::cout << "std::string: " << ft::is_integral<std::string>::value << std::endl;
-    std::cout << "const char: " << ft::is_integral<const char>::value << std::endl;
-    std::cout << "const int: " << ft::is_integral<const int>::value << std::endl;
-    std::cout << "const float: " << ft::is_integral<const float>::value << std::endl;
-    std::cout << "const double: " << ft::is_integral<const double>::value << std::endl;
-    std::cout << "const std::string: " << ft::is_integral<const std::string>::value << std::endl;
-    std::cout << "Struct A: " << ft::is_integral<A>::value << std::endl;
-    std::cout << "Enum E: " << ft::is_integral<E>::value << std::endl;
-    std::cout << "Union U: " << ft::is_integral<U>::value << std::endl;
+// // COPY WITH MY FT LIBRARY TESTS
+//     std::cout << std::endl << "\033[32m### TESTING MY FT LIBRARY\033[37m" << std::endl;
+//     std::cout << "char: " << ft::is_integral<char>::value << std::endl;
+//     std::cout << "int: " << ft::is_integral<int>::value << std::endl;
+//     std::cout << "float: " << ft::is_integral<float>::value << std::endl;
+//     std::cout << "double: " << ft::is_integral<double>::value << std::endl;
+//     std::cout << "std::string: " << ft::is_integral<std::string>::value << std::endl;
+//     std::cout << "const char: " << ft::is_integral<const char>::value << std::endl;
+//     std::cout << "const int: " << ft::is_integral<const int>::value << std::endl;
+//     std::cout << "const float: " << ft::is_integral<const float>::value << std::endl;
+//     std::cout << "const double: " << ft::is_integral<const double>::value << std::endl;
+//     std::cout << "const std::string: " << ft::is_integral<const std::string>::value << std::endl;
+//     std::cout << "Struct A: " << ft::is_integral<A>::value << std::endl;
+//     std::cout << "Enum E: " << ft::is_integral<E>::value << std::endl;
+//     std::cout << "Union U: " << ft::is_integral<U>::value << std::endl;
 
-    return 0;
-}
+//     return 0;
+// }
 
 // Main a compiler SANS LE FLAG C++98
 #include <type_traits>
-int test_is_integral (void)
+int main (void)
 {
     int nb_test = 13;
     bool test[nb_test];

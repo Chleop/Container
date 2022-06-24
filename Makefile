@@ -6,7 +6,7 @@
 #    By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 12:05:37 by cproesch          #+#    #+#              #
-#    Updated: 2022/06/24 10:58:53 by cproesch         ###   ########.fr        #
+#    Updated: 2022/06/24 12:07:03 by cproesch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,37 +14,31 @@
 #								EXECUTABLE									   #
 ################################################################################
 
-NAME_FT		=	containers_ft
-NAME_STD	=	containers_std
+NAME_FT				=	containers_ft
+NAME_STD			=	containers_std
 
 ################################################################################
 #									FILES									   #
 ################################################################################
 
-SRC_DIR			=	tests/
-SRC_FILES		=	main.cpp test_pairs.cpp
-SRCS			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
+SRC_DIR				=	tests/
+SRC_FILES			=	main.cpp test_pairs.cpp test_equal.cpp
+SRCS				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
-OBJS_DIR_FT		=	objects_ft/
-OBJS_DIR_STD	=	objects_std/
-OBJS_FILES		=	$(SRC_FILES:.cpp=.o)
-OBJS_FT			=	$(addprefix $(OBJS_DIR_FT), $(OBJS_FILES))
-OBJS_STD 		=	$(addprefix $(OBJS_DIR_STD), $(OBJS_FILES))
+OBJS_FT				=	$(SRCS:%.cpp=objs/ft_out/%.o)
+OBJS_STD			=	$(SRCS:%.cpp=objs/std_out/%.o)
 
 ################################################################################
 #							COMMANDS AND FLAGS								   #
 ################################################################################
 
-RM			=	rm -rf
+RM					=	rm -rf
 
-CXX 		=	c++
+CXX 				=	c++
 
-IFLAGS		=	-Iincludes -I.
+IFLAGS				=	-Iincludes -I.
 
-CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 -g
-
-$(NAME_FT)	= 	CXXFLAGS += -D LIB=ft
-$(NAME_STD)	= 	CXXFLAGS += -D LIB=std
+CXXFLAGS			=	-Wall -Wextra -Werror -std=c++98 -g
 
 ################################################################################
 #									RULES									   #
@@ -52,26 +46,23 @@ $(NAME_STD)	= 	CXXFLAGS += -D LIB=std
 
 all:				$(NAME_FT) $(NAME_STD)
 
-$(NAME_FT):			$(OBJS_DIR_FT) $(OBJS_FT)
+$(NAME_FT):			$(OBJS_FT)
 					$(CXX) $(OBJS_FT) -o $(NAME_FT)
 
-$(NAME_STD):		$(OBJS_DIR_STD) $(OBJS_STD)
+$(NAME_STD):		$(OBJS_STD)
 					$(CXX) $(OBJS_STD) -o $(NAME_STD)
 
-$(OBJS_DIR_FT):
-					mkdir $(OBJS_DIR_FT)
-
-$(OBJS_DIR_STD):
-					mkdir $(OBJS_DIR_STD)
-
-$(OBJS_DIR_FT)%.o:	$(SRC_DIR)%.cpp
+objs/ft_out/%.o:	%.cpp
+					mkdir -p $(@D)
 					$(CXX) -c $< $(CXXFLAGS) -o $@ $(IFLAGS)
 
-$(OBJS_DIR_STD)%.o:	$(SRC_DIR)%.cpp
+objs/std_out/%.o:	CXXFLAGS += -D LIB=std
+objs/std_out/%.o:	%.cpp
+					mkdir -p $(@D)
 					$(CXX) -c $< $(CXXFLAGS) -o $@ $(IFLAGS)
 			
 clean:		
-					$(RM) $(OBJS_FT) $(OBJS_STD) file*
+					$(RM) $(OBJS_FT) $(OBJS_STD) file* objs/ft_out/ objs/std_out/ objs/
 
 fclean:				clean
 					$(RM) $(NAME_FT) $(NAME_STD)

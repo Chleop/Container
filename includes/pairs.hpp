@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 10:22:30 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/22 15:41:50 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/24 11:46:58 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ namespace ft
 // Non-member functions
     template <class T1, class T2>
     bool operator==(const pair<T1,T2>& x, const pair<T1,T2>& y)
-    {std::cout << "JE SUIS LA FT" << std::endl;return(x.first == y.first && x.second == y.second);}
+    {return(x.first == y.first && x.second == y.second);}
     template <class T1, class T2>
     bool operator!=(const pair<T1,T2>& x, const pair<T1,T2>& y)
     {return(x.first != y.first || x.second != y.second);}
