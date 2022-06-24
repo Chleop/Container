@@ -6,7 +6,7 @@
 #    By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 12:05:37 by cproesch          #+#    #+#              #
-#    Updated: 2022/06/23 17:59:16 by cproesch         ###   ########.fr        #
+#    Updated: 2022/06/24 10:58:53 by cproesch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,11 @@ SRC_DIR			=	tests/
 SRC_FILES		=	main.cpp test_pairs.cpp
 SRCS			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
-OBJS_FT			=	$(SRCS:%.cpp=objects_ft/%.o)
-OBJS_STD 		=	$(SRCS:%.cpp=objects_std/%.o)
+OBJS_DIR_FT		=	objects_ft/
+OBJS_DIR_STD	=	objects_std/
+OBJS_FILES		=	$(SRC_FILES:.cpp=.o)
+OBJS_FT			=	$(addprefix $(OBJS_DIR_FT), $(OBJS_FILES))
+OBJS_STD 		=	$(addprefix $(OBJS_DIR_STD), $(OBJS_FILES))
 
 ################################################################################
 #							COMMANDS AND FLAGS								   #
@@ -47,31 +50,32 @@ $(NAME_STD)	= 	CXXFLAGS += -D LIB=std
 #									RULES									   #
 ################################################################################
 
-all:			$(NAME_FT) $(NAME_STD)
+all:				$(NAME_FT) $(NAME_STD)
 
-objects_ft/%.o:	%.cpp
-				mkdir objects_ft/
-				$(CXX) -c $< $(CXXFLAGS) -o $@ $(IFLAGS)
+$(NAME_FT):			$(OBJS_DIR_FT) $(OBJS_FT)
+					$(CXX) $(OBJS_FT) -o $(NAME_FT)
 
-objects_std/%.o:%.cpp
-				mkdir objects_std/
-				$(CXX) -c $< $(CXXFLAGS) -o $@ $(IFLAGS)
+$(NAME_STD):		$(OBJS_DIR_STD) $(OBJS_STD)
+					$(CXX) $(OBJS_STD) -o $(NAME_STD)
 
-$(NAME_FT):		$(OBJS_FT)
-				$(CXX) $(OBJS_FT) -o $(NAME_FT)
+$(OBJS_DIR_FT):
+					mkdir $(OBJS_DIR_FT)
 
-$(NAME_STD):	$(OBJS_STD)
-				$(CXX) $(OBJS_STD) -o $(NAME_STD)
+$(OBJS_DIR_STD):
+					mkdir $(OBJS_DIR_STD)
 
-$(OBJ_DIR):
-				mkdir $(OBJ_DIR)
+$(OBJS_DIR_FT)%.o:	$(SRC_DIR)%.cpp
+					$(CXX) -c $< $(CXXFLAGS) -o $@ $(IFLAGS)
+
+$(OBJS_DIR_STD)%.o:	$(SRC_DIR)%.cpp
+					$(CXX) -c $< $(CXXFLAGS) -o $@ $(IFLAGS)
 			
 clean:		
-				$(RM) $(OBJS_FT) $(OBJS_STD) file*
+					$(RM) $(OBJS_FT) $(OBJS_STD) file*
 
-fclean:			clean
-				$(RM) $(NAME1) $(NAME2)
+fclean:				clean
+					$(RM) $(NAME_FT) $(NAME_STD)
 
-re:				fclean all
+re:					fclean all
 
-.PHONY:			all clean fclean re
+.PHONY:				all clean fclean re
