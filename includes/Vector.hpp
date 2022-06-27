@@ -6,18 +6,12 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/17 19:13:08 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/27 17:59:28 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
-
-// Ne pas oublier de proteger les includes 
-// "Vous devez pouvoir utiliser vos fichiers d’en-tête séparément les uns des autres.
-// C’est pourquoi ils devront inclure toutes les dépendances qui leur seront nécessaires. 
-// Cependant, vous devez éviter le problème de la double inclusion en les protégeant
-// avec des include guards"
 
 # include <memory>
 # include "VectorIterator.hpp"

@@ -6,13 +6,13 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 14:45:29 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/27 17:06:56 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/27 17:58:43 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.hpp"
 
-//  !!!!!!! COMMENT STACK.STD PEUT FONCTIONNER ALORS QUE JE N'INCLUDE PAS
+//  !!!!!!! COMMENT STD::STACK PEUT FONCTIONNER ALORS QUE JE N'INCLUDE PAS
 //  <STACK> NI <VECTOR> ???????
 
 void test_stack(void)
@@ -35,6 +35,18 @@ void test_stack(void)
     mystack.push(0);
     std::cout << "My stack's top = " << mystack.top() << std::endl;
     std::cout << "My stack size  = " << mystack.size() << std::endl;
+
+    STACK<int> mysecondstack;
+    STACK<int> mythirdstack;
+    mysecondstack = mystack;
+    std::cout << "inferieur : " << (mystack < mysecondstack) << std::endl;
+    std::cout << "superieur : " << (mystack > mysecondstack) << std::endl;
+    std::cout << "egal      : " << (mystack == mysecondstack) << std::endl;
+    std::cout << "different : " << (mystack != mysecondstack) << std::endl;
+    std::cout << "inferieur : " << (mythirdstack < mystack) << std::endl;
+    std::cout << "superieur : " << (mythirdstack > mystack) << std::endl;
+    std::cout << "egal      : " << (mythirdstack == mystack) << std::endl;
+    std::cout << "different : " << (mythirdstack != mystack) << std::endl;
 
     return;
 }
