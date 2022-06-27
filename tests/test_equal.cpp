@@ -6,13 +6,11 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 16:39:33 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/24 11:45:33 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/24 12:10:54 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.hpp"
-
-#include <bits/stdc++.h>
 
 bool pred(int i, int j)
 {

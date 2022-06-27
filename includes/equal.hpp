@@ -6,13 +6,12 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 16:42:09 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/24 11:49:48 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/27 11:17:50 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EQUAL_HPP
 # define EQUAL_HPP
-
 
 #include <bits/stdc++.h>
 #include <iostream>
