@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:38:42 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/29 17:04:10 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/29 17:06:10 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ namespace ft
                         typename std::iterator_traits<Iterator>::reference>
     {
     protected:
-// 
+// MEMBER OBJECT
         Iterator current;
 
     public:
