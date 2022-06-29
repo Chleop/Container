@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:11:23 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/29 15:37:36 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:29:27 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 # include <iostream> 
 # include <utility>
+# include <vector>
 # include "../includes/pairs.hpp"
 # include "../includes/equal.hpp"
 # include "../includes/stack.hpp"
