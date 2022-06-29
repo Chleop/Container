@@ -6,7 +6,7 @@
 #    By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 12:05:37 by cproesch          #+#    #+#              #
-#    Updated: 2022/06/27 15:03:22 by cproesch         ###   ########.fr        #
+#    Updated: 2022/06/29 13:35:17 by cproesch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME_STD			=	containers_std
 ################################################################################
 
 SRC_DIR				=	tests/
-SRC_FILES			=	main.cpp test_pairs.cpp test_equal.cpp test_stack.cpp
+SRC_FILES			=	main.cpp test_pairs.cpp test_equal.cpp test_stack.cpp test_reverse_iterators.cpp 
 SRCS				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 OBJS_FT				=	$(SRCS:%.cpp=objs/ft_out/%.o)
@@ -38,7 +38,7 @@ CXX 				=	c++
 
 IFLAGS				=	-Iincludes -I.
 
-CXXFLAGS			=	-Wall -Wextra -Werror -std=c++98 -g
+CXXFLAGS			=	-Wall -Wextra -Werror -g
 
 ################################################################################
 #									RULES									   #

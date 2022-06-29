@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   test_reverse_iterators.cpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 11:42:14 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/29 13:26:53 by cproesch         ###   ########.fr       */
+/*   Created: 2022/06/29 13:14:00 by cproesch          #+#    #+#             */
+/*   Updated: 2022/06/29 15:51:25 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.hpp"
 
-int main (void)
+void test_reverse_iterators (void)
 {
-    // test_pairs();
-    // test_equal();
-    // won't test is_integral because the std is c++11, will test within the containers
-    // won't test enable_if because the std is c++11, will test within the containers
-    // test_stack();
-    test_reverse_iterators();
+// TEST 1
+    std::vector<int> v {0, 1, 2, 3};
+    REV_ITER<std::vector<int>::iterator> ri1 { REV_ITER<std::vector<int>::iterator> {v.begin()} };
+    REV_ITER<std::vector<int>::iterator> ri2 { REV_ITER<std::vector<int>::iterator> {v.end()} };
+    std::cout << (ri2 - ri1) << ' ' << std::endl;
+    std::cout << (ri1 - ri2) << std::endl;
+// TEST 2
 
-    return 0;
+
 }
