@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:38:42 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/29 12:41:17 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/06/29 12:48:13 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ namespace ft
         typedef typename std::iterator_traits<Iterator>::difference_type    difference_type;
         typedef typename std::iterator_traits<Iterator>::reference          reference;
         typedef typename std::iterator_traits<Iterator>::pointer            pointer;
-        typedef typename std::iterator_traits<Iter>::iterator_category      iterator_category;
-	    typedef typename std::iterator_traits<Iter>::value_type             value_type;
+        typedef typename std::iterator_traits<Iterator>::iterator_category  iterator_category;
+	    typedef typename std::iterator_traits<Iterator>::value_type         value_type;
 // CONSTRUCTORS / DESTRUCTOR
         reverse_iterator();
         explicit reverse_iterator(Iterator x):current(x){}
@@ -56,7 +56,7 @@ namespace ft
         reverse_iterator& operator-=(difference_type n)         {current += n; return *this;}
         reference operator[](difference_type n) const           {current[-n - 1];}
     };
-// NON MEMBER FUNCTIONS
+// NON MEMBER OPERATORS
     template <class Iterator>
     bool operator==(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y);
     template <class Iterator>
