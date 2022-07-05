@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 12:52:45 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/27 12:46:20 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/05 14:20:16 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ namespace ft
 {
     template< bool B, class T = void >
     struct enable_if {};
-
 
 // Specialisation complete du template 
 // Si le type envoye a enable_if est true, enable_if va posseder une variable type
