@@ -25,6 +25,8 @@ void single_test(T &vect, std::string str)
     std::cout << str << " max size is : " << vect.max_size() << std::endl;
     std::cout << str << " size is : " << vect.size() << std::endl;
     std::cout << str << " capacity is : " << vect.capacity() << std::endl;
+    std::cout << str << " begin is : " << *(vect.begin()) << std::endl;
+    // std::cout << str << " rbegin is : " << *(vect.rbegin() + 1) << std::endl;
     std::cout << std::endl;
     return;
 }

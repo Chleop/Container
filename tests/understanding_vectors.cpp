@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:20:57 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/06 15:51:43 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/06 18:07:21 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,33 @@
 // #include "../includes/Vector.hpp"
 
 // TO UNDERSTAND CONSTRUCTORS
-int    main(void)
-{
-    std::vector<int> first;                                // empty vector of ints
-    std::vector<int> second (4,100);                       // four ints with value 100
-    std::vector<int> third (second.begin(),second.end());  // iterating through second
-    std::vector<int> fourth (third);                       // a copy of third
-    int myints[] = {16,2,77,29};
-    std::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+// int    main(void)
+// {
+//     std::vector<int> first;                                // empty vector of ints
+//     std::vector<int> second (4,100);                       // four ints with value 100
+//     std::vector<int> third (second.begin(),second.end());  // iterating through second
+//     std::vector<int> fourth (third);                       // a copy of third
+//     int myints[] = {16,2,77,29};
+//     std::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
     // the iterator constructor can also be used to construct from arrays
 
-    std::cout << "The content of first is:";
-    for (std::vector<int>::iterator it = first.begin(); it != first.end(); ++it)
-         std::cout << ' ' << *it;
-    std::cout << '\n';
+//     std::cout << "The content of first is:";
+//     for (std::vector<int>::iterator it = first.begin(); it != first.end(); ++it)
+//          std::cout << ' ' << *it;
+//     std::cout << '\n';
     // std::cout << "The content of second is:";
     // for (std::vector<int>::iterator it = second.begin(); it != second.end(); ++it)
     //      std::cout << ' ' << *it;
     // std::cout << '\n';
-    std::cout << "The content of third is:";
-    for (std::vector<int>::iterator it = third.begin(); it != third.end(); ++it)
-         std::cout << ' ' << *it;
-    std::cout << '\n';
-    std::cout << " third size is : " << third.size() << std::endl;
-    std::cout << " third capacity is : " << third.capacity() << std::endl;
-    third.push_back(16);
-    std::cout << " AFTER pushback third size is : " << third.size() << std::endl;
-    std::cout << " third capacity is : " << third.capacity() << std::endl;
+//     std::cout << "The content of third is:";
+//     for (std::vector<int>::iterator it = third.begin(); it != third.end(); ++it)
+//          std::cout << ' ' << *it;
+//     std::cout << '\n';
+//     std::cout << " third size is : " << third.size() << std::endl;
+//     std::cout << " third capacity is : " << third.capacity() << std::endl;
+//     third.push_back(16);
+//     std::cout << " AFTER pushback third size is : " << third.size() << std::endl;
+//     std::cout << " third capacity is : " << third.capacity() << std::endl;
     // std::cout << "The content of fourth is:";
     // for (std::vector<int>::iterator it = fourth.begin(); it != fourth.end(); ++it)
     //      std::cout << ' ' << *it;
@@ -51,16 +51,16 @@ int    main(void)
     //      std::cout << ' ' << *it;
     // std::cout << '\n';
 
-    std::vector<int> sixth;
-    sixth = third;
-    std::cout << "The content of sixth is:";
-    for (std::vector<int>::iterator it = sixth.begin(); it != sixth.end(); ++it)
-         std::cout << ' ' << *it;
-    std::cout << '\n';
-    std::cout << " sixth size is : " << sixth.size() << std::endl;
-    std::cout << " sixth capacity is : " << sixth.capacity() << std::endl;
-    return 0;
-}
+//     std::vector<int> sixth;
+//     sixth = third;
+//     std::cout << "The content of sixth is:";
+//     for (std::vector<int>::iterator it = sixth.begin(); it != sixth.end(); ++it)
+//          std::cout << ' ' << *it;
+//     std::cout << '\n';
+//     std::cout << " sixth size is : " << sixth.size() << std::endl;
+//     std::cout << " sixth capacity is : " << sixth.capacity() << std::endl;
+//     return 0;
+// }
 
 // TO UNDERSTAND SIZE AND CAPACITY
 // int    main(void)
@@ -147,3 +147,47 @@ int    main(void)
 // 
 //     return 0;
 // }
+
+// TESTING BEGIN AND RBEGIN
+// TESTING BEGIN AND RBEGIN
+template <typename T>
+void single_test(T &vect, std::string str)
+{
+    std::cout << *(vect.begin()) << std::endl;
+    std::cout   << std::endl
+                << "The content of "
+                << str
+                << " is : ";
+    for (typename T::iterator it = vect.begin(); it != vect.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
+    std::cout << str << " max size is : " << vect.max_size() << std::endl;
+    std::cout << str << " size is : " << vect.size() << std::endl;
+    std::cout << str << " capacity is : " << vect.capacity() << std::endl;
+    // std::cout << str << " rbegin is : " << *(vect.rbegin() + 1) << std::endl;
+    std::cout << std::endl;
+    return;
+}
+
+int main(void)
+{
+    std::vector<int> first;                                // empty std::vector of ints
+    std::vector<int> second (4, 100);                       // four ints with value 100
+    std::vector<int> third (second.begin(),second.end());  // iterating through second
+    std::vector<int> fourth (third);                        // a copy of third
+    int myints[] = {16, 2, 77, 29};                         // iterator constructor used to construct from arrays
+    std::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+    std::vector<int> sixth (6, 666);
+    sixth = third;
+    std::vector<int> seven (2, 666);
+    seven = third;
+
+//     single_test(first, "first");
+    single_test(second, "second");
+    single_test(third, "third");
+    single_test(fourth, "fourth");
+    single_test(fifth, "fifth");
+    single_test(sixth, "sixth");
+    single_test(seven, "seven");
+    return 0;
+}
