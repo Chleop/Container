@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:11:23 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/05 15:31:53 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/06 15:11:42 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # include <vector>
 // # include "../includes/pairs.hpp"
 // # include "../includes/equal.hpp"
+# include "../includes/enable_if.hpp"
+# include "../includes/is_integral.hpp"
 // # include "../includes/stack.hpp"
 // # include "../includes/reverse_iterator.hpp"
 # include "../includes/Vector.hpp"

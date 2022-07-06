@@ -13,7 +13,7 @@
 #include "tests.hpp"
 
 template <typename T>
-void single_test(T vect, std::string str)
+void single_test(T &vect, std::string str)
 {
     std::cout   << std::endl
                 << "The content of "
@@ -33,13 +33,21 @@ void test_vectors(void)
 {
     VECTOR<int> first;                                // empty vector of ints
     VECTOR<int> second (4, 100);                       // four ints with value 100
-    // VECTOR<int> third (second.begin(),second.end());   // iterating through second
-    // VECTOR<int> fourth (third);                        // a copy of third
-    // int myints[] = {16, 2, 77, 29};                         // iterator constructor used to construct from arrays
-    // VECTOR<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+    VECTOR<int> third (second.begin(),second.end());  // iterating through second
+    VECTOR<int> fourth (third);                        // a copy of third
+    int myints[] = {16, 2, 77, 29};                         // iterator constructor used to construct from arrays
+    VECTOR<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+    VECTOR<int> sixth (6, 666);
+    sixth = third;
+    VECTOR<int> seven (2, 666);
+    seven = third;
 
     single_test(first, "first");
     single_test(second, "second");
-    // single_test(third, "third");
+    single_test(third, "third");
+    single_test(fourth, "fourth");
+    single_test(fifth, "fifth");
+    single_test(sixth, "sixth");
+    single_test(seven, "seven");
     return;
 }
