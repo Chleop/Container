@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/07 17:16:25 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:19:14 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,9 @@ private:
     value_type*     _array;
     void            _shift_from_to(iterator from, iterator to)
     {
+        size_type dist = to - from;
         for(size_type i = 0; i != (_size - 1 - from); i++) //n'importe quoiiiiiii
-            std::copy(_array(_size - ), this->end - 1)
+            std::copy(_array[_size - 1], _array[_size - 1 + dist]);
     }
 };
 }
