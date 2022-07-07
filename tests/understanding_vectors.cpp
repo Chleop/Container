@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:20:57 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/06 18:07:21 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/07 11:54:18 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,46 +148,45 @@
 //     return 0;
 // }
 
-// TESTING BEGIN AND RBEGIN
-// TESTING BEGIN AND RBEGIN
-template <typename T>
-void single_test(T &vect, std::string str)
-{
-    std::cout << *(vect.begin()) << std::endl;
-    std::cout   << std::endl
-                << "The content of "
-                << str
-                << " is : ";
-    for (typename T::iterator it = vect.begin(); it != vect.end(); ++it)
-        std::cout << ' ' << *it;
-    std::cout << std::endl;
-    std::cout << str << " max size is : " << vect.max_size() << std::endl;
-    std::cout << str << " size is : " << vect.size() << std::endl;
-    std::cout << str << " capacity is : " << vect.capacity() << std::endl;
-    // std::cout << str << " rbegin is : " << *(vect.rbegin() + 1) << std::endl;
-    std::cout << std::endl;
-    return;
-}
+// TO UNDERSTAND RBEGIN
+// int main(void)
+// {
+//     std::vector<int> v1(1, 9);
+//     v1.push_back(10);
+//     v1.push_back(11);
+//     v1.push_back(12);
+//     v1.push_back(13);
+//     std::cout << *(std::vector<int>::reverse_iterator(v1.rbegin())) << std::endl;
+//     std::cout << *(std::vector<int>::reverse_iterator(v1.end())) << std::endl;
 
+//     return 0;
+// }
+
+// TO UNDERSTAND SWAP
 int main(void)
 {
-    std::vector<int> first;                                // empty std::vector of ints
-    std::vector<int> second (4, 100);                       // four ints with value 100
-    std::vector<int> third (second.begin(),second.end());  // iterating through second
-    std::vector<int> fourth (third);                        // a copy of third
-    int myints[] = {16, 2, 77, 29};                         // iterator constructor used to construct from arrays
-    std::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
-    std::vector<int> sixth (6, 666);
-    sixth = third;
-    std::vector<int> seven (2, 666);
-    seven = third;
+    std::vector<int> foo (3,100);   // three ints with a value of 100
+    std::cout << "foo size: " << foo.size() << std::endl;
+    std::cout << "foo capacity: " << foo.capacity() << std::endl;
+    std::vector<int> bar (5,200);   // five ints with a value of 200
+    std::cout << "bar size: " << bar.size() << std::endl;
+    std::cout << "bar capacity: " << bar.capacity() << std::endl;
 
-//     single_test(first, "first");
-    single_test(second, "second");
-    single_test(third, "third");
-    single_test(fourth, "fourth");
-    single_test(fifth, "fifth");
-    single_test(sixth, "sixth");
-    single_test(seven, "seven");
-    return 0;
+    foo.swap(bar);
+
+    std::cout << "foo contains:";
+    for (unsigned i=0; i<foo.size(); i++)
+        std::cout << ' ' << foo[i];
+    std::cout << std::endl;
+    std::cout << "foo size: " << foo.size() << std::endl;
+    std::cout << "foo capacity: " << foo.capacity() << std::endl;
+
+    std::cout << "bar contains:";
+    for (unsigned i=0; i<bar.size(); i++)
+        std::cout << ' ' << bar[i];
+    std::cout << std::endl;
+    std::cout << "bar size: " << bar.size() << std::endl;
+    std::cout << "bar capacity: " << bar.capacity() << std::endl;
+
+  return 0;
 }
