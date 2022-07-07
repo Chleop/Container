@@ -23,8 +23,6 @@ void empty_test(T &vect, std::string str)
     for (VECTOR<int>::iterator it = vect.begin(); it != vect.end(); ++it)
         std::cout << ' ' << *it;
     std::cout << std::endl;
-// Max size
-    std::cout << str << " max size is : " << vect.max_size() << std::endl;
 // Size
     std::cout << str << " size is : " << vect.size() << std::endl;
 // Capacity
@@ -76,9 +74,9 @@ void test_vectors(void)
     int myints[] = {16, 2, 77, 29};                     // iterator constructor used to construct from arrays
     VECTOR<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
     VECTOR<int> sixth (6, 666);
-    sixth = third;                                      // assignment from smaller vector
+    sixth = fifth;                                      // assignment from smaller vector
     VECTOR<int> seven (2, 666);                         
-    seven = third;                                      // assignment from bigger vector
+    seven = fifth;                                      // assignment from bigger vector
 
     empty_test(first, "first");
     single_test(second, "second");
@@ -91,6 +89,9 @@ void test_vectors(void)
     fifth.swap(second);
     single_test(second, "second");
     single_test(fifth, "fifth");
+
+    fourth.clear();
+    empty_test(fourth, "fourth");
 
     return;
 }

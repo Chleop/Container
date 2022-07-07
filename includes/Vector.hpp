@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/07 13:01:31 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/07 14:15:21 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ public:
                     std::swap(x._capacity, this->_capacity);}
     void            clear(void)
     {if(_size > 0){for (iterator it = this->begin(); it < this->end(); it++)
-    {_alloc.destroy(&(*it));}}}
+    {_alloc.destroy(&(*it));_size = 0;}}}
 
 // OPERATORS
     friend bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
