@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/07 14:15:21 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:16:25 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,46 +40,45 @@ public:
 // CONSTRUCTORS / DESTRUCTORS
 // Default
     explicit vector(const allocator_type& a = allocator_type()):
-            _alloc(a), 
-            _size(0), 
-            _capacity(0)
-            {}
+        _alloc(a), 
+        _size(0), 
+        _capacity(0)
+        {}
 // Fill
     explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& a = allocator_type()):
-            _alloc(a), 
-            _size(n),  
-            _capacity(n), 
-            _array(_alloc.allocate(n))
-            {for (iterator it = this->begin(); it < this->end(); it++)*it = val;}
+        _alloc(a), 
+        _size(n),  
+        _capacity(n), 
+        _array(_alloc.allocate(n))
+        {std::fill(this->begin(), this->end(), val);}
 // Range
     template <class InputIterator, class = typename ft::enable_if<ft::is_integral<InputIterator>::value == false>::type>
     vector(InputIterator first, InputIterator last, const allocator_type& a = allocator_type()):
-    _alloc(a), 
-    _size(last - first),  
-    _capacity(_size), 
-    _array(_alloc.allocate(_size))
-    {for (iterator it = this->begin(); it < this->end(); it++){*it = *(first);first++;}}
+        _alloc(a), 
+        _size(last - first),  
+        _capacity(_size), 
+        _array(_alloc.allocate(_size))
+        {std::copy(first, last, this->begin());}
 // Copy
     vector(const vector<T,Allocator>& x):
-    _alloc(x._alloc), 
-    _size(0), 
-    _capacity(0)
-    {if(_capacity > 0) _array = _alloc.allocate(_capacity);*this = x;}
+        _alloc(x._alloc), 
+        _size(0), 
+        _capacity(0)
+        {*this = x;}
 // Destructor
     ~vector()
-    {clear();if (_capacity > 0)_alloc.deallocate(&(*_array), _capacity);}
+        {clear();if (_capacity > 0)_alloc.deallocate(&(*_array), _capacity);}
 
 // OPERATEUR ET FONCTIONS D'ASSIGNATION
     vector<T,Allocator>&    operator=(const vector<T,Allocator>& x)
                             {if (_capacity < x._size)
                                 {if (_capacity > 0)
-                                        _alloc.deallocate(&(*_array), _capacity);
-                                    _array = _alloc.allocate(x._size);
-                                    _capacity = x._size;}
-                                _size = x._size;
-                                for (size_t i = 0; i < _size; i++)
-                                    _array[i] = (x._array)[i];
-                                return *this;}
+                                    _alloc.deallocate(&(*_array), _capacity);
+                                _array = _alloc.allocate(x._size);
+                                _capacity = x._size;}
+                            _size = x._size;
+                            std::copy(x.begin(), x.end(), this->begin());
+                            return *this;}
     template <class InputIterator>
     void            assign(InputIterator first, InputIterator last)
                     {erase(begin(), end()); insert(begin(), first, last);}
@@ -106,7 +105,20 @@ public:
     size_type   capacity() const                {return (this->_capacity);}
     void        resize(size_type sz, T c = T());
     bool        empty() const                   {return (_size == 0);}
-    void        reserve(size_type n);
+    void        reserve(size_type n)
+    {
+        if (n > this->max_size())
+            throw std::length_error("vector::reserve");
+        if (n > _capacity)
+        {
+            value_type *temp;
+            temp = _alloc.allocate(n);
+            std::copy(this->begin(), this->end(), temp);
+            _alloc.deallocate(&(*_array), _capacity);
+            _array = temp;
+            _capacity = n;
+        }
+    }
 
 // ELEMENT ACCESS
     reference           operator[](size_type n)         {return(_array[n]);}
@@ -151,7 +163,11 @@ private:
     size_type       _size;
     size_type       _capacity;
     value_type*     _array;
-
+    void            _shift_from_to(iterator from, iterator to)
+    {
+        for(size_type i = 0; i != (_size - 1 - from); i++) //n'importe quoiiiiiii
+            std::copy(_array(_size - ), this->end - 1)
+    }
 };
 }
 

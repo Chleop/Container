@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 12:41:37 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/06 11:07:47 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/07 15:56:52 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # define VECTOR_HPP
 
 # include <memory>
+
+
+// The functions described in this clause can report two kinds of errors, each associated with a distinct exception:
+// — a length error is associated with exceptions of type length_error (19.1.4);
+// — an out-of-range error is associated with exceptions of type out_of_range (19.1.5)
+
 
 namespace ft 
 {

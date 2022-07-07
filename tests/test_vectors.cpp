@@ -85,13 +85,15 @@ void test_vectors(void)
     single_test(fifth, "fifth");
     single_test(sixth, "sixth");
     single_test(seven, "seven");
-
+// Swap
     fifth.swap(second);
     single_test(second, "second");
     single_test(fifth, "fifth");
-
+// Clear
     fourth.clear();
     empty_test(fourth, "fourth");
-
+// Reserve
+    second.reserve(20);
+    single_test(second, "second");
     return;
 }
