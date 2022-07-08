@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:20:57 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/08 12:48:37 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/08 17:15:17 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ int main (void)
     for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
         std::cout << ' ' << *it;
     std::cout << std::endl;
+    std::cout << " size is : " << v1.size() << std::endl;
     std::cout << " capacity is : " << v1.capacity() << std::endl;
 
     v1.insert(v1.begin() + 1, 5, 5);
@@ -232,6 +233,39 @@ int main (void)
     for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
         std::cout << ' ' << *it;
     std::cout << std::endl;
+    std::cout << " size is : " << v1.size() << std::endl;
+    std::cout << " capacity is : " << v1.capacity() << std::endl;
+
+    v1.insert(v1.begin() + 1, 5, 5);
+    
+    for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
+    std::cout << " size is : " << v1.size() << std::endl;
+    std::cout << " capacity is : " << v1.capacity() << std::endl;
+
+    v1.insert(v1.begin() + 1, 13, 5);
+    
+    for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
+    std::cout << " size is : " << v1.size() << std::endl;
+    std::cout << " capacity is : " << v1.capacity() << std::endl;
+
+        v1.insert(v1.begin() + 1, 5, 5);
+    
+    for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
+    std::cout << " size is : " << v1.size() << std::endl;
+    std::cout << " capacity is : " << v1.capacity() << std::endl;
+
+            v1.insert(v1.begin() + 1, 21, 5);
+    
+    for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
+    std::cout << " size is : " << v1.size() << std::endl;
     std::cout << " capacity is : " << v1.capacity() << std::endl;
     return 0;
 }

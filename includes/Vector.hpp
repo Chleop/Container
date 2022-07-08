@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/08 15:12:44 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/08 18:35:35 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,27 +131,19 @@ public:
     void            pop_back();
     iterator        insert(iterator position, const T& x)
                     {difference_type   diff = position - this->begin();
-                    if (_capacity < _size + 1)
-                        this->reallocate(_size + 1);
-                    std::copy_backward(this->begin() + diff, this->begin() + _size,\
-                        this->begin() + _size+ 1);
-                    *(this->begin() + diff) = x;
-                    _size++;
+                    insert(this->begin() + diff, 1, x);
                     return (this->begin() + diff);}
     void            insert(iterator position, size_type n, const T& x)
-                    {
-                        difference_type   diff = position - this->begin();
-                        if (_capacity < _size + n)
-                            this->reallocate(_size + n);
-                        std::copy_backward(this->begin() + diff, this->begin() + _size,\
-                            this->begin() + _size+ n);
-                        *(this->begin() + diff) = x;
-                        _size++;
-                        return;
-                    }
+                    {difference_type   diff = position - this->begin();
+                    if (_capacity < _size + n)
+                        this->reallocate(_size + n);
+                    std::copy_backward(this->begin() + diff, this->begin() + _size,\
+                        this->begin() + _size + n);
+                    std::fill(this->begin() + diff, this->begin() + diff + n, x);
+                    _size = _size + n;
+                    return;}
     template <class InputIterator, class = typename ft::enable_if<ft::is_integral<InputIterator>::value == false>::type>
     void            insert(iterator position, InputIterator first, InputIterator last);
-
     iterator        erase(iterator position);
     iterator        erase(iterator first, iterator last);
     void            swap(vector<T,Allocator>&x)
@@ -180,8 +172,10 @@ private:
                         if (n > _capacity)
                         {if (n > this->max_size())
                             throw std::length_error("vector::reallocate");
-                        while (n > new_cap)
-                            new_cap = new_cap * 2;
+                        if ((n - _size) > _size)
+                            new_cap = n;
+                        else
+                            new_cap = _size + _size;
                         value_type *temp;
                         temp = _alloc.allocate(new_cap);
                         std::copy(this->begin(), this->end(), temp);

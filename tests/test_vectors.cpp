@@ -32,7 +32,7 @@ void single_test(T &vect, std::string str)
                 << str
                 << " is : ";
 // Iterators, begin, end
-    for (typename T::iterator it = vect.begin(); it != vect.end() - 1; ++it)
+    for (typename T::iterator it = vect.begin(); it != vect.end(); ++it)
         std::cout << ' ' << *it;
     std::cout << std::endl;
 // Max size
@@ -57,7 +57,7 @@ void single_test(T &vect, std::string str)
     std::cout   << "After insertion, content of "
                 << str
                 << " is : ";
-    for (typename T::iterator it = vect.begin(); it != vect.end() - 1; ++it)
+    for (typename T::iterator it = vect.begin(); it != vect.end(); ++it)
         std::cout << ' ' << *it;
     std::cout << std::endl;
 // Size
@@ -88,14 +88,14 @@ void test_vectors(void)
     single_test(fifth, "fifth");
     // single_test(sixth, "sixth");
     // single_test(seven, "seven");
-// // Swap
+// Swap
     fifth.swap(second);
     single_test(second, "second");
-//     single_test(fifth, "fifth");
+    // single_test(fifth, "fifth");
 // Clear
-    fourth.clear();
-    empty_test(fourth, "fourth");
-// // Reserve
+//     fourth.clear();
+//     empty_test(fourth, "fourth");
+// Reserve
     // second.reserve(20);
     // single_test(second, "second");
     return;
