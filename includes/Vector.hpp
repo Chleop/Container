@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/07 17:19:14 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/08 15:12:44 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ public:
     explicit vector(const allocator_type& a = allocator_type()):
         _alloc(a), 
         _size(0), 
-        _capacity(0)
+        _capacity(0),
+        _array(NULL)
         {}
 // Fill
     explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& a = allocator_type()):
@@ -63,7 +64,8 @@ public:
     vector(const vector<T,Allocator>& x):
         _alloc(x._alloc), 
         _size(0), 
-        _capacity(0)
+        _capacity(0),
+        _array(NULL)
         {*this = x;}
 // Destructor
     ~vector()
@@ -88,8 +90,6 @@ public:
                     {return _alloc;}
 
 // ITERATORS
-// ----------------------------->TO DO :voir s'il faut throw une erreur par exemple lorsqu'on fait un 
-// begin() sur un vecteur non initialise (le std fait un segfault)
     iterator                begin()         {return iterator(_array);}
     const_iterator          begin() const   {return const_iterator(_array);}
     iterator                end()           {return iterator(_array + _size);}
@@ -106,19 +106,15 @@ public:
     void        resize(size_type sz, T c = T());
     bool        empty() const                   {return (_size == 0);}
     void        reserve(size_type n)
-    {
-        if (n > this->max_size())
-            throw std::length_error("vector::reserve");
-        if (n > _capacity)
-        {
-            value_type *temp;
-            temp = _alloc.allocate(n);
-            std::copy(this->begin(), this->end(), temp);
-            _alloc.deallocate(&(*_array), _capacity);
-            _array = temp;
-            _capacity = n;
-        }
-    }
+                {if (n > this->max_size())
+                        throw std::length_error("vector::reserve");
+                    if (n > _capacity)
+                    {value_type *temp;
+                    temp = _alloc.allocate(n);
+                    std::copy(this->begin(), this->end(), temp);
+                    _alloc.deallocate(&(*_array), _capacity);
+                    _array = temp;
+                    _capacity = n;}}
 
 // ELEMENT ACCESS
     reference           operator[](size_type n)         {return(_array[n]);}
@@ -133,17 +129,33 @@ public:
 // MODIFIERS
     void            push_back(const T& x);
     void            pop_back();
-    iterator        insert(iterator position, const T& x);
-    void            insert(iterator position, size_type n, const T& x);
-    template <class InputIterator>
+    iterator        insert(iterator position, const T& x)
+                    {difference_type   diff = position - this->begin();
+                    if (_capacity < _size + 1)
+                        this->reallocate(_size + 1);
+                    std::copy_backward(this->begin() + diff, this->begin() + _size,\
+                        this->begin() + _size+ 1);
+                    *(this->begin() + diff) = x;
+                    _size++;
+                    return (this->begin() + diff);}
+    void            insert(iterator position, size_type n, const T& x)
+                    {
+                        difference_type   diff = position - this->begin();
+                        if (_capacity < _size + n)
+                            this->reallocate(_size + n);
+                        std::copy_backward(this->begin() + diff, this->begin() + _size,\
+                            this->begin() + _size+ n);
+                        *(this->begin() + diff) = x;
+                        _size++;
+                        return;
+                    }
+    template <class InputIterator, class = typename ft::enable_if<ft::is_integral<InputIterator>::value == false>::type>
     void            insert(iterator position, InputIterator first, InputIterator last);
 
     iterator        erase(iterator position);
     iterator        erase(iterator first, iterator last);
     void            swap(vector<T,Allocator>&x)
-                    {std::swap(x._array, this->_array);
-                    std::swap(x._size, this->_size);
-                    std::swap(x._capacity, this->_capacity);}
+                    {std::swap(x, *this);}
     void            clear(void)
     {if(_size > 0){for (iterator it = this->begin(); it < this->end(); it++)
     {_alloc.destroy(&(*it));_size = 0;}}}
@@ -163,12 +175,19 @@ private:
     size_type       _size;
     size_type       _capacity;
     value_type*     _array;
-    void            _shift_from_to(iterator from, iterator to)
-    {
-        size_type dist = to - from;
-        for(size_type i = 0; i != (_size - 1 - from); i++) //n'importe quoiiiiiii
-            std::copy(_array[_size - 1], _array[_size - 1 + dist]);
-    }
+    void            reallocate(size_type n)
+                    {size_type   new_cap = _capacity;
+                        if (n > _capacity)
+                        {if (n > this->max_size())
+                            throw std::length_error("vector::reallocate");
+                        while (n > new_cap)
+                            new_cap = new_cap * 2;
+                        value_type *temp;
+                        temp = _alloc.allocate(new_cap);
+                        std::copy(this->begin(), this->end(), temp);
+                        _alloc.deallocate(&(*_array), _capacity);
+                        _array = temp;
+                        _capacity = new_cap;}}
 };
 }
 

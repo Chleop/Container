@@ -15,14 +15,6 @@
 template <typename T>
 void empty_test(T &vect, std::string str)
 {
-    std::cout   << std::endl
-                << "The content of "
-                << str
-                << " is : ";
-// Iterators, begin, end
-    for (VECTOR<int>::iterator it = vect.begin(); it != vect.end(); ++it)
-        std::cout << ' ' << *it;
-    std::cout << std::endl;
 // Size
     std::cout << str << " size is : " << vect.size() << std::endl;
 // Capacity
@@ -40,7 +32,7 @@ void single_test(T &vect, std::string str)
                 << str
                 << " is : ";
 // Iterators, begin, end
-    for (typename T::iterator it = vect.begin(); it != vect.end(); ++it)
+    for (typename T::iterator it = vect.begin(); it != vect.end() - 1; ++it)
         std::cout << ' ' << *it;
     std::cout << std::endl;
 // Max size
@@ -52,7 +44,7 @@ void single_test(T &vect, std::string str)
 // Rbegin
     std::cout << str << " rbegin is : " << *(vect.rbegin()) << std::endl;
 // End
-    std::cout << str << " end is : " << *(vect.end()) << std::endl;
+    std::cout << str << " end is : " << *(vect.end() - 1) << std::endl;
 // At
     std::cout << str << " at is : " << vect.at(2) << std::endl;
 // Front
@@ -61,6 +53,17 @@ void single_test(T &vect, std::string str)
     std::cout << str << " back is : " << vect.back() << std::endl;
 // Empty
     std::cout << str << " is empty ? : " << vect.empty() << std::endl;
+    vect.insert((vect.begin() + 1), 5, 5);
+    std::cout   << "After insertion, content of "
+                << str
+                << " is : ";
+    for (typename T::iterator it = vect.begin(); it != vect.end() - 1; ++it)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
+// Size
+    std::cout << str << " size is : " << vect.size() << std::endl;
+// Capacity
+    std::cout << str << " capacity is : " << vect.capacity() << std::endl;
     std::cout << std::endl;
     return;
 }
@@ -80,20 +83,20 @@ void test_vectors(void)
 
     empty_test(first, "first");
     single_test(second, "second");
-    single_test(third, "third");
-    single_test(fourth, "fourth");
+    // single_test(third, "third");
+    // single_test(fourth, "fourth");
     single_test(fifth, "fifth");
-    single_test(sixth, "sixth");
-    single_test(seven, "seven");
-// Swap
+    // single_test(sixth, "sixth");
+    // single_test(seven, "seven");
+// // Swap
     fifth.swap(second);
     single_test(second, "second");
-    single_test(fifth, "fifth");
+//     single_test(fifth, "fifth");
 // Clear
     fourth.clear();
     empty_test(fourth, "fourth");
-// Reserve
-    second.reserve(20);
-    single_test(second, "second");
+// // Reserve
+    // second.reserve(20);
+    // single_test(second, "second");
     return;
 }

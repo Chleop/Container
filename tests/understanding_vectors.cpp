@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:20:57 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/07 15:56:55 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/08 12:48:37 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,30 +163,75 @@
 // }
 
 // TO UNDERSTAND SWAP
-int main(void)
+// int main(void)
+// {
+//     std::vector<int> foo (3,100);   // three ints with a value of 100
+//     std::cout << "foo size: " << foo.size() << std::endl;
+//     std::cout << "foo capacity: " << foo.capacity() << std::endl;
+//     std::vector<int> bar (5,200);   // five ints with a value of 200
+//     std::cout << "bar size: " << bar.size() << std::endl;
+//     std::cout << "bar capacity: " << bar.capacity() << std::endl;
+
+//     foo.swap(bar);
+
+//     std::cout << "foo contains:";
+//     for (unsigned i=0; i<foo.size(); i++)
+//         std::cout << ' ' << foo[i];
+//     std::cout << std::endl;
+//     std::cout << "foo size: " << foo.size() << std::endl;
+//     std::cout << "foo capacity: " << foo.capacity() << std::endl;
+
+//     std::cout << "bar contains:";
+//     for (unsigned i=0; i<bar.size(); i++)
+//         std::cout << ' ' << bar[i];
+//     std::cout << std::endl;
+//     std::cout << "bar size: " << bar.size() << std::endl;
+//     std::cout << "bar capacity: " << bar.capacity() << std::endl;
+
+//   return 0;
+// }
+
+// TO UNDERSTAND COPY BACKWARD
+// int main (void)
+// {
+//     std::vector<int> v1(2,3);
+//         std::cout   << std::endl
+//                 << "The content is : ";
+// // Iterators, begin, end
+//     for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
+//         std::cout << ' ' << *it;
+//     std::cout << std::endl;
+//     v1.reserve(20);
+//     std::vector<int>v2(5,6);
+//     std::copy_backward(v2.begin(), v2.end(), v1.begin() + 8);
+// // Size
+//     std::cout << " size is : " << v1.size() << std::endl;
+// // Capacity
+//     std::cout << " capacity is : " << v1.capacity() << std::endl;
+//     std::cout   << std::endl
+//                 << "The content is : ";
+// // Iterators, begin, end
+//     for (std::vector<int>::iterator it = v1.begin(); it != v1.end() + 6; ++it)
+//         std::cout << ' ' << *it;
+//     std::cout << std::endl;
+//     std::cout << std::endl;
+//     return 0;
+// }
+
+// TO UNDERSTAND INSERT
+int main (void)
 {
-    std::vector<int> foo (3,100);   // three ints with a value of 100
-    std::cout << "foo size: " << foo.size() << std::endl;
-    std::cout << "foo capacity: " << foo.capacity() << std::endl;
-    std::vector<int> bar (5,200);   // five ints with a value of 200
-    std::cout << "bar size: " << bar.size() << std::endl;
-    std::cout << "bar capacity: " << bar.capacity() << std::endl;
-
-    foo.swap(bar);
-
-    std::cout << "foo contains:";
-    for (unsigned i=0; i<foo.size(); i++)
-        std::cout << ' ' << foo[i];
+    std::vector<int> v1(2,3);
+    for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
+        std::cout << ' ' << *it;
     std::cout << std::endl;
-    std::cout << "foo size: " << foo.size() << std::endl;
-    std::cout << "foo capacity: " << foo.capacity() << std::endl;
+    std::cout << " capacity is : " << v1.capacity() << std::endl;
 
-    std::cout << "bar contains:";
-    for (unsigned i=0; i<bar.size(); i++)
-        std::cout << ' ' << bar[i];
+    v1.insert(v1.begin() + 1, 5, 5);
+    
+    for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
+        std::cout << ' ' << *it;
     std::cout << std::endl;
-    std::cout << "bar size: " << bar.size() << std::endl;
-    std::cout << "bar capacity: " << bar.capacity() << std::endl;
-
-  return 0;
+    std::cout << " capacity is : " << v1.capacity() << std::endl;
+    return 0;
 }
