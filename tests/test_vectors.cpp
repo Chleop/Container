@@ -15,6 +15,7 @@
 template <typename T>
 void empty_test(T &vect, std::string str)
 {
+    std::cout << std::endl;
 // Size
     std::cout << str << " size is : " << vect.size() << std::endl;
 // Capacity
@@ -97,7 +98,7 @@ void test_vectors(void)
 // Assign
     std::cout << "After assigning elements of second to first:";
     first.assign(second.begin(), second.end());
-    empty_test(first, "first");
+    single_test(first, "first");
     std::cout << std::endl;
     return;
 }

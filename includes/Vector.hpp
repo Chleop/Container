@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/11 11:31:48 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/11 12:43:55 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,13 +150,27 @@ public:
                     begin() + _size + (last - first));
                     std::copy(first, last, begin() + diff);
                     _size = _size + (last - first);}
-    iterator        erase(iterator position);
-    iterator        erase(iterator first, iterator last);
+    iterator        erase(iterator position)
+                    {
+                        _alloc.destroy(position);
+                        insert(position, position + 1, end());
+                        _size--;
+                        return position;
+                    }   
+    iterator        erase(iterator first, iterator last)
+                    {
+                        for (iterator it = first; it < last; it++)
+                            _alloc.destroy(&(*it));
+                        insert(first, last, end());
+                        _size = _size - (last - first);
+                        return first;
+                    }
     void            swap(vector<T,Allocator>&x)
                     {std::swap(x, *this);}
     void            clear(void)
-    {if(_size > 0){for (iterator it = begin(); it < end(); it++)
-    {_alloc.destroy(&(*it));_size = 0;}}}
+                    {for (iterator it = begin(); it < end(); it++)
+                    _alloc.destroy(&(*it));
+                    _size = 0;}
 
 // OPERATORS
     friend bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
