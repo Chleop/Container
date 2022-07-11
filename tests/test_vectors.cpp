@@ -54,6 +54,17 @@ void single_test(T &vect, std::string str)
     std::cout << str << " back is : " << vect.back() << std::endl;
 // Empty
     std::cout << str << " is empty ? : " << vect.empty() << std::endl;
+// Assign
+    std::cout << "After assigning elements";
+    int array [] = {10,25,36,47,52};
+    vect.assign(array + 1, array + 4);
+    for (typename T::iterator it = vect.begin(); it != vect.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
+    std::cout << str << " size is : " << vect.size() << std::endl;
+    std::cout << str << " capacity is : " << vect.capacity() << std::endl;
+    std::cout << str << " front is : " << vect.front() << std::endl;
+    std::cout << str << " back is : " << vect.back() << std::endl;
     std::cout << std::endl;
     return;
 }
@@ -99,6 +110,47 @@ void test_vectors(void)
     std::cout << "After assigning elements of second to first:";
     first.assign(second.begin(), second.end());
     single_test(first, "first");
+    std::cout << "After assigning elements of 'Array' to fifth, elements:" << std::endl;
+    int array [] = {10,25,36,47,52};
+    fifth.assign(array, array + 4);
+    for (typename std::vector<int>::iterator it = fifth.begin(); it != fifth.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
+// Resize
+    std::cout << "After resizing elements of fifth to size 2:";
+    fifth.resize(2);
+    for (typename std::vector<int>::iterator it = fifth.begin(); it != fifth.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
+    std::cout << " size is : " << fifth.size() << std::endl;
+    std::cout << " capacity is : " << fifth.capacity() << std::endl;
+    std::cout << "After resizing elements of fifth to size 11:";
+    fifth.resize(11);
+    for (typename std::vector<int>::iterator it = fifth.begin(); it != fifth.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
+    std::cout << " size is : " << fifth.size() << std::endl;
+    std::cout << " capacity is : " << fifth.capacity() << std::endl;
+// Push back
+    fifth.push_back(666);
+    fifth.push_back(666);
+    fifth.push_back(666);
+    std::cout << "After pushing back 3 times 666 after fifth:";
+    for (typename std::vector<int>::iterator it = fifth.begin(); it != fifth.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
+    std::cout << " size is : " << fifth.size() << std::endl;
+    std::cout << " capacity is : " << fifth.capacity() << std::endl;
+// Pop back
+    fifth.pop_back();
+    fifth.pop_back();
+    fifth.pop_back();
+    std::cout << "After poping back 3 times after fifth:";
+    for (typename std::vector<int>::iterator it = fifth.begin(); it != fifth.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
+    std::cout << " size is : " << fifth.size() << std::endl;
+    std::cout << " capacity is : " << fifth.capacity() << std::endl;
     std::cout << std::endl;
     return;
 }

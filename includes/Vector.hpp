@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/11 12:43:55 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/11 14:58:19 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ public:
         {clear();if (_capacity > 0)_alloc.deallocate(&(*_array), _capacity);}
 
 // OPERATEUR ET FONCTIONS D'ASSIGNATION
-    vector<T,Allocator>&    operator=(const vector<T,Allocator>& x)
-                            {if (_capacity < x._size)
-                                {if (_capacity > 0)
-                                    _alloc.deallocate(&(*_array), _capacity);
-                                _array = _alloc.allocate(x._size);
-                                _capacity = x._size;}
-                            _size = x._size;
-                            std::copy(x.begin(), x.end(), begin());
-                            return *this;}
+    vector<T,Allocator>& operator=(const vector<T,Allocator>& x)
+                        {if (_capacity < x._size)
+                            {if (_capacity > 0)
+                                _alloc.deallocate(&(*_array), _capacity);
+                            _array = _alloc.allocate(x._size);
+                            _capacity = x._size;}
+                        _size = x._size;
+                        std::copy(x.begin(), x.end(), begin());
+                        return *this;}
     template <class InputIterator>
     void            assign(InputIterator first, InputIterator last)
                     {erase(begin(), end()); insert(begin(), first, last);}
@@ -103,18 +103,20 @@ public:
     size_type   size() const                    {return (this->_size);}
     size_type   max_size() const                {return (_alloc.max_size());}
     size_type   capacity() const                {return (this->_capacity);}
-    void        resize(size_type sz, T c = T());
     bool        empty() const                   {return (_size == 0);}
+    void        resize(size_type sz, T c = T())
+                {if (sz < _size)erase(begin() + sz, end());
+                else if (sz > _size)insert(end(), sz - _size, c);}
     void        reserve(size_type n)
                 {if (n > max_size())
-                        throw std::length_error("vector::reserve");
-                    if (n > _capacity)
-                    {value_type *temp;
-                    temp = _alloc.allocate(n);
-                    std::copy(begin(), end(), temp);
-                    _alloc.deallocate(&(*_array), _capacity);
-                    _array = temp;
-                    _capacity = n;}}
+                    throw std::length_error("vector::reserve");
+                if (n > _capacity)
+                {value_type *temp;
+                temp = _alloc.allocate(n);
+                std::copy(begin(), end(), temp);
+                _alloc.deallocate(&(*_array), _capacity);
+                _array = temp;
+                _capacity = n;}}
 
 // ELEMENT ACCESS
     reference           operator[](size_type n)         {return(_array[n]);}
@@ -127,12 +129,6 @@ public:
     const_reference     back() const                    {return(_array[_size - 1]);}
 
 // MODIFIERS
-    void            push_back(const T& x);
-    void            pop_back();
-    iterator        insert(iterator position, const T& x)
-                    {difference_type   diff = position - begin();
-                    insert(begin() + diff, 1, x);
-                    return (begin() + diff);}
     void            insert(iterator position, size_type n, const T& x)
                     {difference_type   diff = position - begin();
                     if (_capacity < _size + n)
@@ -141,6 +137,10 @@ public:
                     begin() + _size + n);
                     std::fill(begin() + diff, begin() + diff + n, x);
                     _size = _size + n;}
+    iterator        insert(iterator position, const T& x)
+                    {difference_type   diff = position - begin();
+                    insert(begin() + diff, 1, x);
+                    return (begin() + diff);}
     template <class InputIterator, class = typename ft::enable_if<ft::is_integral<InputIterator>::value == false>::type>
     void            insert(iterator position, InputIterator first, InputIterator last)
                     {difference_type   diff = position - begin();
@@ -151,26 +151,24 @@ public:
                     std::copy(first, last, begin() + diff);
                     _size = _size + (last - first);}
     iterator        erase(iterator position)
-                    {
-                        _alloc.destroy(position);
-                        insert(position, position + 1, end());
-                        _size--;
-                        return position;
-                    }   
+                    {_alloc.destroy(&(*position));
+                    insert(position, position + 1, end());
+                    _size--;
+                    return position;}   
     iterator        erase(iterator first, iterator last)
-                    {
-                        for (iterator it = first; it < last; it++)
-                            _alloc.destroy(&(*it));
-                        insert(first, last, end());
-                        _size = _size - (last - first);
-                        return first;
-                    }
+                    {for (iterator it = first; it < last; it++)
+                        _alloc.destroy(&(*it));
+                    insert(first, last, end());
+                    _size = _size - (last - first);
+                    return first;}
+    void            clear(void)
+                    {erase(begin(), end());}
+    void            push_back(const T& x)
+                    {insert(end(), x);}
+    void            pop_back()
+                    {erase(end() - 1);}
     void            swap(vector<T,Allocator>&x)
                     {std::swap(x, *this);}
-    void            clear(void)
-                    {for (iterator it = begin(); it < end(); it++)
-                    _alloc.destroy(&(*it));
-                    _size = 0;}
 
 // OPERATORS
     friend bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
