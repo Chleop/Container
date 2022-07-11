@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/08 18:35:35 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/11 11:31:48 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ public:
         _size(n),  
         _capacity(n), 
         _array(_alloc.allocate(n))
-        {std::fill(this->begin(), this->end(), val);}
+        {std::fill(begin(), end(), val);}
 // Range
     template <class InputIterator, class = typename ft::enable_if<ft::is_integral<InputIterator>::value == false>::type>
     vector(InputIterator first, InputIterator last, const allocator_type& a = allocator_type()):
@@ -59,7 +59,7 @@ public:
         _size(last - first),  
         _capacity(_size), 
         _array(_alloc.allocate(_size))
-        {std::copy(first, last, this->begin());}
+        {std::copy(first, last, begin());}
 // Copy
     vector(const vector<T,Allocator>& x):
         _alloc(x._alloc), 
@@ -79,7 +79,7 @@ public:
                                 _array = _alloc.allocate(x._size);
                                 _capacity = x._size;}
                             _size = x._size;
-                            std::copy(x.begin(), x.end(), this->begin());
+                            std::copy(x.begin(), x.end(), begin());
                             return *this;}
     template <class InputIterator>
     void            assign(InputIterator first, InputIterator last)
@@ -94,10 +94,10 @@ public:
     const_iterator          begin() const   {return const_iterator(_array);}
     iterator                end()           {return iterator(_array + _size);}
     const_iterator          end() const     {return const_iterator(_array + _size);}
-    reverse_iterator        rbegin()        {return reverse_iterator(this->end());}
-    const_reverse_iterator  rbegin() const  {return const_reverse_iterator(this->end());}
-    reverse_iterator        rend()          {return reverse_iterator(this->begin());}
-    const_reverse_iterator  rend() const    {return const_reverse_iterator(this->begin());}
+    reverse_iterator        rbegin()        {return reverse_iterator(end());}
+    const_reverse_iterator  rbegin() const  {return const_reverse_iterator(end());}
+    reverse_iterator        rend()          {return reverse_iterator(begin());}
+    const_reverse_iterator  rend() const    {return const_reverse_iterator(begin());}
 
 // CAPACITY
     size_type   size() const                    {return (this->_size);}
@@ -106,12 +106,12 @@ public:
     void        resize(size_type sz, T c = T());
     bool        empty() const                   {return (_size == 0);}
     void        reserve(size_type n)
-                {if (n > this->max_size())
+                {if (n > max_size())
                         throw std::length_error("vector::reserve");
                     if (n > _capacity)
                     {value_type *temp;
                     temp = _alloc.allocate(n);
-                    std::copy(this->begin(), this->end(), temp);
+                    std::copy(begin(), end(), temp);
                     _alloc.deallocate(&(*_array), _capacity);
                     _array = temp;
                     _capacity = n;}}
@@ -130,26 +130,32 @@ public:
     void            push_back(const T& x);
     void            pop_back();
     iterator        insert(iterator position, const T& x)
-                    {difference_type   diff = position - this->begin();
-                    insert(this->begin() + diff, 1, x);
-                    return (this->begin() + diff);}
+                    {difference_type   diff = position - begin();
+                    insert(begin() + diff, 1, x);
+                    return (begin() + diff);}
     void            insert(iterator position, size_type n, const T& x)
-                    {difference_type   diff = position - this->begin();
+                    {difference_type   diff = position - begin();
                     if (_capacity < _size + n)
-                        this->reallocate(_size + n);
-                    std::copy_backward(this->begin() + diff, this->begin() + _size,\
-                        this->begin() + _size + n);
-                    std::fill(this->begin() + diff, this->begin() + diff + n, x);
-                    _size = _size + n;
-                    return;}
+                        reallocate(_size + n);
+                    std::copy_backward(begin() + diff, begin() + _size,\
+                    begin() + _size + n);
+                    std::fill(begin() + diff, begin() + diff + n, x);
+                    _size = _size + n;}
     template <class InputIterator, class = typename ft::enable_if<ft::is_integral<InputIterator>::value == false>::type>
-    void            insert(iterator position, InputIterator first, InputIterator last);
+    void            insert(iterator position, InputIterator first, InputIterator last)
+                    {difference_type   diff = position - begin();
+                    if (_capacity < _size + (last - first))
+                        reallocate(_size + (last - first));
+                    std::copy_backward(begin() + diff, begin() + _size,\
+                    begin() + _size + (last - first));
+                    std::copy(first, last, begin() + diff);
+                    _size = _size + (last - first);}
     iterator        erase(iterator position);
     iterator        erase(iterator first, iterator last);
     void            swap(vector<T,Allocator>&x)
                     {std::swap(x, *this);}
     void            clear(void)
-    {if(_size > 0){for (iterator it = this->begin(); it < this->end(); it++)
+    {if(_size > 0){for (iterator it = begin(); it < end(); it++)
     {_alloc.destroy(&(*it));_size = 0;}}}
 
 // OPERATORS
@@ -170,7 +176,7 @@ private:
     void            reallocate(size_type n)
                     {size_type   new_cap = _capacity;
                         if (n > _capacity)
-                        {if (n > this->max_size())
+                        {if (n > max_size())
                             throw std::length_error("vector::reallocate");
                         if ((n - _size) > _size)
                             new_cap = n;
@@ -178,7 +184,7 @@ private:
                             new_cap = _size + _size;
                         value_type *temp;
                         temp = _alloc.allocate(new_cap);
-                        std::copy(this->begin(), this->end(), temp);
+                        std::copy(begin(), end(), temp);
                         _alloc.deallocate(&(*_array), _capacity);
                         _array = temp;
                         _capacity = new_cap;}}
