@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:20:57 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/11 11:27:14 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/11 16:35:53 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,25 +271,36 @@
 // }
 
 // TO UNDERSTAND ASSIGN
+// int main (void)
+// {
+//     std::vector<int> v1(2, 3);
+//     int tab [] = {14, 25, 37, 48, 54, 6};
+//     std::vector<int> v2(tab, tab + 6);
+
+//     for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
+//         std::cout << ' ' << *it;
+//     std::cout << std::endl;
+//     std::cout << " size is : " << v1.size() << std::endl;
+//     std::cout << " capacity is : " << v1.capacity() << std::endl;
+
+//     v1.assign(v2.begin(), v2.end()+2);
+    
+//     for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
+//         std::cout << ' ' << *it;
+//     std::cout << std::endl;
+//     std::cout << " size is : " << v1.size() << std::endl;
+//     std::cout << " capacity is : " << v1.capacity() << std::endl;
+
+//     return 0;
+// }
+
 int main (void)
 {
-    std::vector<int> v1(2, 3);
-    int tab [] = {14, 25, 37, 48, 54, 6};
-    std::vector<int> v2(tab, tab + 6);
+    int array1 [] = {1,2,3};
+    int array2 [] = {1,2,3};
+    int array3 [] = {1,3,3};
 
-    for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
-        std::cout << ' ' << *it;
-    std::cout << std::endl;
-    std::cout << " size is : " << v1.size() << std::endl;
-    std::cout << " capacity is : " << v1.capacity() << std::endl;
-
-    v1.assign(v2.begin(), v2.end()+2);
-    
-    for (std::vector<int>::iterator it = v1.begin(); it != v1.end(); ++it)
-        std::cout << ' ' << *it;
-    std::cout << std::endl;
-    std::cout << " size is : " << v1.size() << std::endl;
-    std::cout << " capacity is : " << v1.capacity() << std::endl;
-
+    std::cout << (array1 == array2) << std::endl;
+    std::cout << (array3 == array2) << std::endl;
     return 0;
 }

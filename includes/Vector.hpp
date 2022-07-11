@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/11 14:58:19 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/11 18:43:40 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,12 +171,19 @@ public:
                     {std::swap(x, *this);}
 
 // OPERATORS
-    friend bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
-    friend bool operator< (const vector<T,Allocator>& x, const vector<T,Allocator>& y);
-    friend bool operator!=(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
-    friend bool operator> (const vector<T,Allocator>& x, const vector<T,Allocator>& y);
-    friend bool operator>=(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
-    friend bool operator<=(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
+    friend bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+    {if (x._size != y._size)return false;
+    return (std::equal (x.begin(), x.end(), y.begin()));}
+    friend bool operator!=(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+    {return !(x == y);}
+    friend bool operator< (const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+    {return (ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()));}
+    friend bool operator> (const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+    {return (!(x < y) && !(x == y));}
+    friend bool operator>=(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+    {return !(x < y);}
+    friend bool operator<=(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
+    {return (x < y) || (x == y);}
     friend void swap(vector<T,Allocator>& x, vector<T,Allocator>& y)
     {y.swap(x);}
     

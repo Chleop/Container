@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 13:14:00 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/29 17:00:50 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/11 18:55:07 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ std::cout << "TEST 7" << std::endl;
         << "x != z " << (x != z) << std::endl
         << "x <  z " << (x <  z) << std::endl
         << "x <= z " << (x <= z) << std::endl;
-
+    return;
 }

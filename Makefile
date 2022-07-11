@@ -6,7 +6,7 @@
 #    By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 12:05:37 by cproesch          #+#    #+#              #
-#    Updated: 2022/07/05 15:31:36 by cproesch         ###   ########.fr        #
+#    Updated: 2022/07/11 19:00:43 by cproesch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ NAME_STD			=	containers_std
 ################################################################################
 
 SRC_DIR				=	tests/
-SRC_FILES			=	main.cpp test_vectors.cpp 
+SRC_FILES			=	main.cpp test_vectors.cpp test_equal.cpp test_pairs.cpp \
+test_lex_comp.cpp test_stack.cpp \
+
 SRCS				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 OBJS_FT				=	$(SRCS:%.cpp=objs/ft_out/%.o)
