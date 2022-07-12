@@ -6,7 +6,7 @@
 #    By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 12:05:37 by cproesch          #+#    #+#              #
-#    Updated: 2022/07/11 19:00:43 by cproesch         ###   ########.fr        #
+#    Updated: 2022/07/12 10:54:47 by cproesch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ CXX 				=	c++
 
 IFLAGS				=	-Iincludes -I.
 
-CXXFLAGS			=	-Wall -Wextra -Werror -g
+CXXFLAGS			=	-Wall -Wextra -Werror -g -std=c++98
 
 ################################################################################
 #									RULES									   #

@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/11 18:43:40 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/12 19:10:35 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 # define VECTOR_HPP
 
 # include <memory>
+# include "is_integral.hpp"
+# include "lex_compare.hpp"
+# include "enable_if.hpp"
 
 namespace ft 
 {
-template <class T, class Allocator = std::allocator<T>>
+template <class T, class Allocator = std::allocator<T> >
 class vector
 {
 
@@ -53,8 +56,8 @@ public:
         _array(_alloc.allocate(n))
         {std::fill(begin(), end(), val);}
 // Range
-    template <class InputIterator, class = typename ft::enable_if<ft::is_integral<InputIterator>::value == false>::type>
-    vector(InputIterator first, InputIterator last, const allocator_type& a = allocator_type()):
+    template <class InputIterator>
+    vector(typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last, const allocator_type& a = allocator_type()):
         _alloc(a), 
         _size(last - first),  
         _capacity(_size), 
@@ -75,7 +78,10 @@ public:
     vector<T,Allocator>& operator=(const vector<T,Allocator>& x)
                         {if (_capacity < x._size)
                             {if (_capacity > 0)
+                            {
+                                clear();
                                 _alloc.deallocate(&(*_array), _capacity);
+                            }
                             _array = _alloc.allocate(x._size);
                             _capacity = x._size;}
                         _size = x._size;
@@ -114,6 +120,7 @@ public:
                 {value_type *temp;
                 temp = _alloc.allocate(n);
                 std::copy(begin(), end(), temp);
+                clear();
                 _alloc.deallocate(&(*_array), _capacity);
                 _array = temp;
                 _capacity = n;}}
@@ -141,8 +148,8 @@ public:
                     {difference_type   diff = position - begin();
                     insert(begin() + diff, 1, x);
                     return (begin() + diff);}
-    template <class InputIterator, class = typename ft::enable_if<ft::is_integral<InputIterator>::value == false>::type>
-    void            insert(iterator position, InputIterator first, InputIterator last)
+    template <class InputIterator>
+    void            insert(iterator position, typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
                     {difference_type   diff = position - begin();
                     if (_capacity < _size + (last - first))
                         reallocate(_size + (last - first));
@@ -164,7 +171,8 @@ public:
     void            clear(void)
                     {erase(begin(), end());}
     void            push_back(const T& x)
-                    {insert(end(), x);}
+                    {if (_capacity != 0) {insert(end(), x);}
+                    else {reallocate(1);insert(end(), x);}}
     void            pop_back()
                     {erase(end() - 1);}
     void            swap(vector<T,Allocator>&x)
@@ -194,6 +202,7 @@ private:
     value_type*     _array;
     void            reallocate(size_type n)
                     {size_type   new_cap = _capacity;
+                    size_type   new_size = _size;
                         if (n > _capacity)
                         {if (n > max_size())
                             throw std::length_error("vector::reallocate");
@@ -203,8 +212,13 @@ private:
                             new_cap = _size + _size;
                         value_type *temp;
                         temp = _alloc.allocate(new_cap);
-                        std::copy(begin(), end(), temp);
-                        _alloc.deallocate(&(*_array), _capacity);
+                        if (_capacity != 0)
+                        {
+                            std::copy(begin(), end(), temp);
+                            clear();
+                            _alloc.deallocate(&(*_array), _capacity);
+                        }
+                        _size = new_size;
                         _array = temp;
                         _capacity = new_cap;}}
 };
