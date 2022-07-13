@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/13 16:14:53 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/13 19:24:33 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ public:
         _size(n),  
         _capacity(n), 
         _array(_alloc.allocate(n))
-        {std::fill(begin(), end(), val);}
+        {for(size_type i = 0; i < _size; i++)
+            _alloc.construct(&(_array[i]), val);}
 // Range
     template <class InputIterator>
     vector(typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last, const allocator_type& a = allocator_type()):
@@ -136,8 +137,10 @@ public:
 // ELEMENT ACCESS
     reference           operator[](size_type n)         {return*(_array + n);}
     const_reference     operator[](size_type n) const   {return*(_array + n);}
-    const_reference     at(size_type n) const           {return(_array[n]);}
-    reference           at(size_type n)                 {return(_array[n]);}
+    const_reference     at(size_type n) const           {if (n > _size - 1) throw std::out_of_range("vector::at");
+                                                        return(_array[n]);}
+    reference           at(size_type n)                 {if (n > _size - 1) throw std::out_of_range("vector::at");
+                                                        return(_array[n]);}
     reference           front()                         {return(_array[0]);}
     const_reference     front() const                   {return(_array[0]);}
     reference           back()                          {return(_array[_size - 1]);}
@@ -153,6 +156,8 @@ public:
 // MODIFIERS
     void            insert(iterator position, size_type n, const T& x)
                     {difference_type   diff = position - begin();
+                    if (n == 0)
+                        return;
                     if (_capacity < _size + n)
                         reallocate(_size + n);
                     for(size_type i = _size + n - 1; i != diff + n - 1; i--)
@@ -177,6 +182,8 @@ public:
     void            insert(iterator position, typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
                     {size_type    pos = position - begin();
                     size_type           added_size = last - first;
+                    if (added_size == 0)
+                        return;
                     if (_capacity < _size + added_size)
                         reallocate(_size + added_size);
                     
@@ -221,7 +228,9 @@ public:
     void            pop_back()
                     {erase(end() - 1);}
     void            swap(vector<T,Allocator>&x)
-                    {std::swap(x, *this);}
+                    {std::swap(x._array, this->_array);
+                    std::swap(x._size, this->_size);
+                    std::swap(x._capacity, this->_capacity);}
 
 // OPERATORS
     friend bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y)
