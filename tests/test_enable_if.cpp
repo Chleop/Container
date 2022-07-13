@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 12:23:10 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/27 12:45:44 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/13 14:10:25 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ struct C: T {};
 
 int    main(void)
 {
+    std::cout << "#####$      TEST ENABLE IF      #####" << std::endl;
     int x = 5;
     // unsigned int y = 5;
     std::cout << "Checking myfunction's result with signed int : " << std::endl;

@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 18:05:14 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/24 11:57:48 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/13 14:10:51 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int u;
 #include <type_traits>
 int main (void)
 {
+    std::cout << "#####$      TEST IS INTEGRAL      #####" << std::endl;
     int nb_test = 13;
     bool test[nb_test];
     test[0] = (std::is_integral<char>::value) == (ft::is_integral<char>::value);

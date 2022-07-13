@@ -6,19 +6,20 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 14:45:29 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/12 19:11:04 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/13 14:16:46 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.hpp"
 
-//  !!!!!!! COMMENT STD::STACK PEUT FONCTIONNER ALORS QUE JE N'INCLUDE PAS
-//  <STACK> NI <VECTOR> ???????
-
-int main(void)
+void test_stack(void)
 {
-    STACK<int> mystack;
+    std::cout << "#####$      TEST STACK      #####" << std::endl;
 
+    std::vector<int> myvector;
+    myvector.reserve(20);
+
+    STACK<int> mystack;
     std::cout << "Is my stack empty ? (1 = Yes, 0 = No) = " << mystack.empty() << std::endl;
     std::cout << "Adding -1, 666666666 and 1" << std::endl;
     mystack.push(-1);
@@ -49,17 +50,15 @@ int main(void)
     std::cout << "egal      : " << (mythirdstack == mystack) << std::endl;
     std::cout << "different : " << (mythirdstack != mystack) << std::endl;
 
-    
-    ft::vector<std::string> lst;
+    VECTOR<std::string> lst;
 	lst.push_back("salut");
 	lst.push_back("tu vas bien?");
 	lst.push_back("super");
 	lst.push_back("et toi?");
-    
-    STACK<std::string, ft::vector<std::string> >    my_string_stack(lst);
+
+    STACK<std::string, VECTOR<std::string> >    my_string_stack(lst);
 
     std::cout << my_string_stack.empty() << std::endl;
-    
     std::string caca = my_string_stack.top();
     std::cout << "top: " << my_string_stack.top() << '\n';
 	while (!my_string_stack.empty())
@@ -67,5 +66,5 @@ int main(void)
 		std::cout << my_string_stack.top() << '\n';
 		my_string_stack.pop();
 	}
-    return 0;
+    return;
 }

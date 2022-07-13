@@ -60,6 +60,8 @@ void single_test(T &vect, std::string str)
 
 void test_vectors(void)
 {
+    std::cout << "#####$      TEST VECTORS      #####" << std::endl;
+
     VECTOR<int> first;                                  // empty vector of ints
     VECTOR<int> second (4, 100);                        // four ints with value 100
     VECTOR<int> third (second.begin(),second.end());    // iterating through second

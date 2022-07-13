@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 10:44:14 by cproesch          #+#    #+#             */
-/*   Updated: 2022/06/24 11:44:39 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/13 14:11:22 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void test_pairs(void)
 {
+    std::cout << "#####$      TEST PAIRS      #####" << std::endl;
     std::string str = "kiki";
 
 // TEST 1

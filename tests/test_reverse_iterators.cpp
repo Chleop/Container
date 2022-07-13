@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 13:14:00 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/11 18:55:07 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/13 14:11:36 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void test_reverse_iterators (void)
 {
+    std::cout << "#####$      TEST REVERSE ITERATORS      #####" << std::endl;
+
     std::vector<int> v {10, 11, 12, 13};
     std::vector<int>::iterator iter0 = v.begin();
     std::vector<int>::iterator iter1 = v.end();

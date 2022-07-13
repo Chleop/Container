@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/12 19:10:35 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/13 16:14:53 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ public:
         _size(last - first),  
         _capacity(_size), 
         _array(_alloc.allocate(_size))
-        {std::copy(first, last, begin());}
+        {for(size_type i = 0; i < _size; i++)
+            _alloc.construct(&(_array[i]), *(first + i));}
+        // {copy(first, last, begin());}
 // Copy
     vector(const vector<T,Allocator>& x):
         _alloc(x._alloc), 
@@ -85,7 +87,9 @@ public:
                             _array = _alloc.allocate(x._size);
                             _capacity = x._size;}
                         _size = x._size;
-                        std::copy(x.begin(), x.end(), begin());
+                        for(size_type i = 0; i < x.size(); i++)
+                            _alloc.construct(&(_array[i]), x[i]);
+                        // copy(x.begin(), x.end(), begin());
                         return *this;}
     template <class InputIterator>
     void            assign(InputIterator first, InputIterator last)
@@ -114,20 +118,24 @@ public:
                 {if (sz < _size)erase(begin() + sz, end());
                 else if (sz > _size)insert(end(), sz - _size, c);}
     void        reserve(size_type n)
+                {if (n > _capacity)
                 {if (n > max_size())
                     throw std::length_error("vector::reserve");
-                if (n > _capacity)
-                {value_type *temp;
+                value_type *temp;
+                size_type   new_size = _size;
                 temp = _alloc.allocate(n);
-                std::copy(begin(), end(), temp);
-                clear();
-                _alloc.deallocate(&(*_array), _capacity);
+                if (_size != 0)
+                    {for(size_type i = 0; i < _size; i++)
+                        _alloc.construct(&(temp[i]), _array[i]);
+                    clear();
+                    _alloc.deallocate(&(*_array), _capacity);}
                 _array = temp;
+                _size = new_size;
                 _capacity = n;}}
 
 // ELEMENT ACCESS
-    reference           operator[](size_type n)         {return(_array[n]);}
-    const_reference     operator[](size_type n) const   {return(_array[n]);}
+    reference           operator[](size_type n)         {return*(_array + n);}
+    const_reference     operator[](size_type n) const   {return*(_array + n);}
     const_reference     at(size_type n) const           {return(_array[n]);}
     reference           at(size_type n)                 {return(_array[n]);}
     reference           front()                         {return(_array[0]);}
@@ -135,14 +143,31 @@ public:
     reference           back()                          {return(_array[_size - 1]);}
     const_reference     back() const                    {return(_array[_size - 1]);}
 
+    // void print_array(std::string u)
+    // {
+    //     std::cout << "PRINTING ARRAY : " << u << std::endl;
+    //     for (size_t i = 0; i<_size; i++)
+    //         std::cout << _array[i] << std::endl;
+    // }
+
 // MODIFIERS
     void            insert(iterator position, size_type n, const T& x)
                     {difference_type   diff = position - begin();
                     if (_capacity < _size + n)
                         reallocate(_size + n);
-                    std::copy_backward(begin() + diff, begin() + _size,\
-                    begin() + _size + n);
-                    std::fill(begin() + diff, begin() + diff + n, x);
+                    for(size_type i = _size + n - 1; i != diff + n - 1; i--)
+                    {if (i < _size)
+                        _alloc.destroy(&(_array[i]));
+                    _alloc.construct(&(_array[i]), _array[i - n]);}
+
+                    // copy_backward(begin() + diff, begin() + _size,\
+                    // begin() + _size + n);
+                    for(size_type i = diff; i < diff + n; i++)
+                    {if (i < _size)
+                        _alloc.destroy(&(_array[i]));
+                    _alloc.construct(&(_array[i]), x);}
+                    // fill(begin() + diff, begin() + diff + n, x);
+
                     _size = _size + n;}
     iterator        insert(iterator position, const T& x)
                     {difference_type   diff = position - begin();
@@ -150,23 +175,43 @@ public:
                     return (begin() + diff);}
     template <class InputIterator>
     void            insert(iterator position, typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
-                    {difference_type   diff = position - begin();
-                    if (_capacity < _size + (last - first))
-                        reallocate(_size + (last - first));
-                    std::copy_backward(begin() + diff, begin() + _size,\
-                    begin() + _size + (last - first));
-                    std::copy(first, last, begin() + diff);
-                    _size = _size + (last - first);}
+                    {size_type    pos = position - begin();
+                    size_type           added_size = last - first;
+                    if (_capacity < _size + added_size)
+                        reallocate(_size + added_size);
+                    
+                    // copy_backward(begin() + pos, begin() + _size,\
+                    // begin() + _size + added_size);
+                    for(size_type i = _size + added_size - 1; i != pos + added_size - 1; i--)
+                    {_alloc.destroy(&(_array[i]));
+                    _alloc.construct(&(_array[i]), _array[i - added_size]);}
+                    // copy(first, last, begin() + pos);
+                    for(size_type i = pos; i < pos + added_size; i++)
+                    {_alloc.destroy(&(_array[i]));
+                    _alloc.construct(&(_array[i]), *(first++));}
+
+                    _size = _size + added_size;}
     iterator        erase(iterator position)
-                    {_alloc.destroy(&(*position));
-                    insert(position, position + 1, end());
-                    _size--;
-                    return position;}   
-    iterator        erase(iterator first, iterator last)
-                    {for (iterator it = first; it < last; it++)
+                    {iterator it = position;
+                    for (; it < (end() - 1); it++)
+                    {
                         _alloc.destroy(&(*it));
-                    insert(first, last, end());
-                    _size = _size - (last - first);
+                        _alloc.construct(&(*it), *(it + 1));
+                    }
+                    _alloc.destroy(&(*it));
+                    _size--;
+                    return position;}
+    iterator        erase(iterator first, iterator last)
+                    {size_type diff_size = last - first;
+                    iterator it = first;
+                    for (; it < (end() - diff_size); it++)
+                    {
+                        _alloc.destroy(&(*it));
+                        _alloc.construct(&(*it), *(it + diff_size));
+                    }
+                    for (; it < end(); it++)
+                        _alloc.destroy(&(*it));
+                    _size = _size - diff_size;
                     return first;}
     void            clear(void)
                     {erase(begin(), end());}
@@ -201,26 +246,36 @@ private:
     size_type       _capacity;
     value_type*     _array;
     void            reallocate(size_type n)
-                    {size_type   new_cap = _capacity;
-                    size_type   new_size = _size;
-                        if (n > _capacity)
-                        {if (n > max_size())
-                            throw std::length_error("vector::reallocate");
-                        if ((n - _size) > _size)
-                            new_cap = n;
-                        else
-                            new_cap = _size + _size;
-                        value_type *temp;
-                        temp = _alloc.allocate(new_cap);
-                        if (_capacity != 0)
-                        {
-                            std::copy(begin(), end(), temp);
-                            clear();
-                            _alloc.deallocate(&(*_array), _capacity);
-                        }
-                        _size = new_size;
-                        _array = temp;
-                        _capacity = new_cap;}}
+                    {if ((n - _size) > _size)
+                        reserve(n);
+                    else
+                        reserve(_size + _size);}
+    // template <class InputIterator>
+    // void            copy_backward(InputIterator first, InputIterator last, iterator result)
+    //                 {
+    //                     size_type diff_size = last - first;
+    //                     size_type end_result = result - begin();
+    //                     for(size_type i = end_result - 1; i != end_result - diff_size - 1; i--)
+    //                     {
+    //                         if (i < _size)
+    //                             _alloc.destroy(&(_array[i]));
+    //                         _alloc.construct(&(_array[i]), *(last--));
+    //                     }
+    //                 }
+    // template <class InputIterator>
+    // void            copy(InputIterator first, InputIterator last, iterator result)
+    //                 {
+    //                     size_type diff_size = last - first;
+    //                     size_type start_result = result - begin();
+    //                     for(size_type i = start_result; i != start_result + diff_size; i++)
+    //                     {
+    //                         if (i < _size)
+    //                             _alloc.destroy(&(_array[i]));
+    //                         _alloc.construct(&(_array[i]), *(first++));
+    //                     }
+    //                 }
+
+
 };
 }
 
