@@ -42,8 +42,8 @@ void single_test(T &vect, std::string str)
     std::cout << str << " size is : " << vect.size() << std::endl;
 // Capacity
     std::cout << str << " capacity is : " << vect.capacity() << std::endl;
-// Rbegin
-    std::cout << str << " rbegin is : " << *(vect.rbegin()) << std::endl;
+// // Rbegin
+//     std::cout << str << " rbegin is : " << *(vect.rbegin()) << std::endl;
 // End
     std::cout << str << " end is : " << *(vect.end() - 1) << std::endl;
 // At
