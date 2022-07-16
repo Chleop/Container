@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:04:31 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/15 18:37:28 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/16 16:54:17 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 # include "is_integral.hpp"
 # include "lex_compare.hpp"
 # include "enable_if.hpp"
-// // # include "iterator_traits.hpp"
+# include "iterator_traits.hpp"
 # include "reverse_iterator.hpp"
-# include "iterators.hpp"
 
 namespace ft 
 {
@@ -42,14 +41,10 @@ public:
     typedef typename allocator_type::const_reference        const_reference;
     typedef typename allocator_type::pointer                pointer;
     typedef typename allocator_type::const_pointer          const_pointer;
-    // std ci-dessous a modifier lorsque les iterateurs seront ope :
-    // typedef typename ft::iterator<value_type>        iterator;
-    // typedef const_pointer                                   const_iterator;
-    typedef typename ft::iterator<T>                iterator;
-    typedef typename std::vector<T>::const_iterator         const_iterator;
-    // typedef typename std::vector<T>::reverse_iterator       reverse_iterator;
-    typedef typename ft::reverse_iterator<iterator>                reverse_iterator;
-    typedef typename std::vector<iterator>::const_reverse_iterator const_reverse_iterator;
+    typedef pointer                                         iterator;
+    typedef const_pointer                                   const_iterator;
+    typedef typename ft::reverse_iterator<iterator>         reverse_iterator;
+    typedef typename ft::const_reverse_iterator<iterator>   const_reverse_iterator;
 
 
 /* ************************************************************************** */
