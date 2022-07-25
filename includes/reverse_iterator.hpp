@@ -27,10 +27,6 @@ namespace ft
 
     public:
 // MEMBER TYPES
-        // typedef ptrdiff_t   difference_type;
-        // typedef Iterator&   reference;
-        // typedef Iterator*   pointer;
-	    // typedef Iterator    value_type; 
         typedef Iterator                                            iterator_type;
         typedef typename iterator_traits<Iterator>::difference_type difference_type;
         typedef typename iterator_traits<Iterator>::reference       reference;
