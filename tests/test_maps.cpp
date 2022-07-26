@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 10:37:28 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/25 10:43:24 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:37:57 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,36 @@ void print_map(std::string comment, const std::map<std::string, int>& m)
  
 int main()
 {
-    // Create a map of three (strings, int) pairs
-    std::map<std::string, int> m { {"CPU", 10}, {"GPU", 15}, {"RAM", 20}, };
- 
-    print_map("1) Initial map: ", m);
- 
-    m["CPU"] = 25;  // update an existing value
-    m["DSD"] = 30;  // insert a new value
-    print_map("2) Updated map: ", m);
+    // Default constructor
+    std::map<std::string, int> map1;
+    map1["something"] = 69;
+    map1["anything"] = 199;
+    map1["that thing"] = 199;
+    print_map("1) Initial map   : ", map1);
+    
+    // Range constructor
+    std::map<std::string, int> iter(map1.find("something"), map1.end());
+    print_map("2) Iter map      : ", iter);
+
+    // Copy constructor
+    std::map<std::string, int> copied(map1);
+    print_map("3) Copied map    : ", copied);
+
+    map1["cPU"] = 25;  // update an existing value
+    map1["DSD"] = 30;  // insert a new value
+    print_map("4) Updated map   : ", map1);
  
     // using operator[] with non-existent key always performs an insert
-    std::cout << "3) m[UPS] = " << m["UPS"] << '\n';
-    print_map("4) Updated map: ", m);
+    std::cout << "5) map1[UPS] = " << map1["UPS"] << '\n';
+    print_map("6) Updated map   : ", map1);
  
-    m.erase("GPU");
-    print_map("5) After erase: ", m);
+    map1.erase("cPU");
+    print_map("7) After erase   : ", map1);
  
-    std::cout << "7) m.size() = " << m.size() << '\n';
+    std::cout << "8) map1.size() = " << map1.size() << '\n';
  
-    m.clear();
-    std::cout << std::boolalpha << "8) Map is empty: " << m.empty() << '\n';
+    map1.clear();
+    std::cout << std::boolalpha << "9) Map is empty: " << map1.empty() << '\n';
 
     return 0;
 }

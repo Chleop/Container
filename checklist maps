@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Maps.hpp                                           :+:      :+:    :+:   */
+/*   checklist maps                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 10:44:45 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/26 16:29:36 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/25 15:02:04 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 
 # include <functional>
 # include <memory>
-# include "pairs.hpp"
-
-# define BLACK  0
-# define RED    1
+# include "includes/pairs.hpp"
 
 namespace ft
 {
@@ -29,7 +26,6 @@ template    <class Key,
             class Allocator = std::allocator<ft::pair<const Key, T>>>
 class map
 {
-    
 public:
 /* ************************************************************************** */
 /*                               MEMBER TYPES                                 */
@@ -71,21 +67,17 @@ public:
 /* ************************************************************************** */
 
     // Default
-    explicit map(const Compare& comp = Compare(), const Allocator& = Allocator())
-    {_RedBlackTree = RedBlackTree();}
+    explicit map(const Compare& comp = Compare(), const Allocator& = Allocator());
     // Range
     template <class InputIterator>
     map (InputIterator first,
         InputIterator last,
         const Compare& comp = Compare(),
-        const Allocator& = Allocator())
-    {}
+        const Allocator& = Allocator());
     // Copy
-    map (const map<Key,T,Compare,Allocator>& x)
-    {}
+    map (const map<Key,T,Compare,Allocator>& x);
     // Destructor
-    ~map()
-    {}
+    ~map();
 
 /* ************************************************************************** */
 /*                    ASSIGNMENT OPERATORS AND FUNCTIONS                      */
@@ -118,10 +110,7 @@ public:
 /*                               ELEMENTS ACCESS                              */
 /* ************************************************************************** */
 
-    T& operator[](const key_type& x)
-    {
-        return (*((insert(make_pair(x, T()))).first)).second;
-    }
+    T& operator[](const key_type& x);
 
 /* ************************************************************************** */
 /*                                  MODIFIERS                                 */
@@ -159,53 +148,6 @@ public:
     equal_range(const key_type& x);
     ft::pair<const_iterator,const_iterator>
     equal_range(const key_type& x) const;
-
-/* ************************************************************************** */
-/*                              MY SECRET GARDEN                             */
-/* ************************************************************************** */
-
-    class Node
-    {
-    private:
-    // ATTRIBUTES
-        value_type  data;
-        Node        *left;
-        Node        *right;
-        Node        *parent;
-        bool        color;
-
-    public:
-    // CONSTRUCTORS / DESTRUCTORS
-        Node(value_type data)
-        {
-            this->data = data;
-            this->left = NULL;
-            this->right = NULL;
-            this->parent = NULL;
-            this->color = BLACK;
-        }
-        ~Node(void){}
-    }
-
-    class RedBlackTree
-    {
-    private:
-    // ATTRIBUTES
-        Node    *root;
-
-    public:
-    // CONSTRUCTORS / DESTRUCTORS
-        RedBlackTree()
-        {}
-        
-    // GETTERS
-        Node *getRoot(void)
-        {return root;}
-    }
-
-private:
-    RedBlackTree _RedBlackTree;
-
 };
 
 /* ************************************************************************** */
@@ -230,8 +172,7 @@ bool operator<=(const map<Key,T,Compare,Allocator>& x, const map<Key,T,Compare,A
 /* ************************************************************************** */
 
 template <class Key, class T, class Compare, class Allocator>
-void swap(map<Key,T,Compare,Allocator>& x, map<Key,T,Compare,Allocator>& y)
-{x.swap(y);}
+void swap(map<Key,T,Compare,Allocator>& x, map<Key,T,Compare,Allocator>& y);
 
 }
 
