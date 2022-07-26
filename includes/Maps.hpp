@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 10:44:45 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/26 16:29:36 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/26 18:45:40 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,28 @@ public:
     // GETTERS
         Node *getRoot(void)
         {return root;}
+
+    // MEMBER FUNCTIONS
+        Node *searchNode(key_type key)
+        {
+            Node *node = root;
+            while (node != null) 
+            {
+                if (key == node->data.first)
+                    return node;
+                else if (key < node->data.first)
+                    node = node.left;
+                else
+                    node = node.right;
+            }
+            return null;
+        }
+
+        void insertNode(key_type key, mapped_type value = mapped_type())
+        {
+            Node *newNode;
+            
+        }
     }
 
 private:

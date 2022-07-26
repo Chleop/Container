@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 10:37:28 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/26 16:37:57 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/26 18:31:59 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ int main()
 {
     // Default constructor
     std::map<std::string, int> map1;
-    map1["something"] = 69;
-    map1["anything"] = 199;
-    map1["that thing"] = 199;
+    // map1["something"] = 69;
+    // map1["anything"] = 199;
+    // map1["that thing"] = 199;
     print_map("1) Initial map   : ", map1);
+    std::cout << "8) map1.size() = " << map1.size() << '\n';
     
     // Range constructor
     std::map<std::string, int> iter(map1.find("something"), map1.end());
