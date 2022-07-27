@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 10:44:45 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/26 18:45:40 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:46:21 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ public:
     typedef ft::pair<const Key, T>                  value_type;
     typedef Compare                                 key_compare;
     typedef Allocator                               allocator_type;
+    
     typedef typename Allocator::reference           reference;
     typedef typename Allocator::const_reference     const_reference;
     typedef implementation defined                  iterator; // See 23.1
@@ -161,72 +162,12 @@ public:
     equal_range(const key_type& x) const;
 
 /* ************************************************************************** */
-/*                              MY SECRET GARDEN                             */
+/*                              MY SECRET GARDEN                              */
 /* ************************************************************************** */
 
-    class Node
-    {
-    private:
-    // ATTRIBUTES
-        value_type  data;
-        Node        *left;
-        Node        *right;
-        Node        *parent;
-        bool        color;
-
-    public:
-    // CONSTRUCTORS / DESTRUCTORS
-        Node(value_type data)
-        {
-            this->data = data;
-            this->left = NULL;
-            this->right = NULL;
-            this->parent = NULL;
-            this->color = BLACK;
-        }
-        ~Node(void){}
-    }
-
-    class RedBlackTree
-    {
-    private:
-    // ATTRIBUTES
-        Node    *root;
-
-    public:
-    // CONSTRUCTORS / DESTRUCTORS
-        RedBlackTree()
-        {}
-        
-    // GETTERS
-        Node *getRoot(void)
-        {return root;}
-
-    // MEMBER FUNCTIONS
-        Node *searchNode(key_type key)
-        {
-            Node *node = root;
-            while (node != null) 
-            {
-                if (key == node->data.first)
-                    return node;
-                else if (key < node->data.first)
-                    node = node.left;
-                else
-                    node = node.right;
-            }
-            return null;
-        }
-
-        void insertNode(key_type key, mapped_type value = mapped_type())
-        {
-            Node *newNode;
-            
-        }
-    }
-
 private:
-    RedBlackTree _RedBlackTree;
+    RedBlackTree    _RedBlackTree;
+    size_t          _size;
 
 };
 
