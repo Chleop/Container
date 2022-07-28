@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 10:44:45 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/27 17:46:21 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/28 12:09:26 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 # include <functional>
 # include <memory>
 # include "pairs.hpp"
-
-# define BLACK  0
-# define RED    1
 
 namespace ft
 {
