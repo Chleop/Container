@@ -6,7 +6,7 @@
 /*   By: cproesch <cproesch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 17:40:12 by cproesch          #+#    #+#             */
-/*   Updated: 2022/07/28 19:22:37 by cproesch         ###   ########.fr       */
+/*   Updated: 2022/07/28 19:37:17 by cproesch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,37 +232,49 @@ public:
                     return;
                 }
             }
-// ########### Et ici si pas de creation de nouveau noeud, pas besoin de detruire celui cree
-// ########### car sera de toute facon detruit a la fin de la fonction ?
         }
     }
 
+        // Case 1: 
+        // Parent is NULL, we've reached the root, the end of the recursion
+        // Case 2: 
+        // Parent is black --> nothing to do
+        // Case 3:
+        // Not having a grandparent means that parent is the root (as this method is only 
+        // called on red nodes (either on newly inserted ones - or - recursively on red 
+        // grandparents), all we have to do is to recolor the root black).
+        
+        // If neither of cases 1 to 3 :
+        // Get the aunt (may be NULL/nil, in which case its color is BLACK)
+        // Case 4: 
+        // aunt is red -> recolor parent, grandparent and aunt
+        // Case 5: 
+        // Parent is left child of grandparent
+        //     EITHER Aunt is black and node is left->right "inner child" of its grandparent
+        //     Let "parent" point to the new root node of the rotated sub-tree.
+        //     It will be recolored in the next step.
+        //     OR Aunt is black and node is left->left "outer child" of its grandparent
+        //     Recolor original parent and grandparent
+        // Case 6: 
+        // Parent is right child of grandparent
+        //     EITHER Aunt is black and node is right->left "inner child" of its grandparent
+        //     Let "parent" point to the new root node of the rotated sub-tree.
+        //     It will be recolored in the next step.
+        //     OR Aunt is black and node is right->right "outer child" of its grandparent
+        //     Recolor original parent and grandparent
     void reequilibrateTree(node_ptr n)
     {
         node_ptr myparent = parent(n);
+        node_ptr mygrandparent = grandparent(n);
+        node_ptr myaunt = aunt(n);
 
-        // Case 1: Parent is NULL, we've reached the root, the end of the recursion
-        // Case 2: Parent is black --> nothing to do
         if ((myparent == NULL) || (myparent->color == BLACK))
             return;
-
-        node_ptr mygrandparent = grandparent(n);
-
-        // Case 3:
-        // Not having a grandparent means that parent is the root.
-        // As this method is only called on red nodes (either on newly inserted ones - or -
-        // recursively on red grandparents), all we have to do is to recolor the root black.
         if (mygrandparent == NULL) 
         {
             myparent->color = BLACK;
             return;
         }
-
-        // Get the aunt (may be NULL/nil, in which case its color is BLACK)
-        // then recursively for grandparent.
-        node_ptr myaunt = aunt(n);
-
-        // Case 3: aunt is red -> recolor parent, grandparent and aunt
         if (myaunt != NULL && myaunt->color == RED)
         {
             myaunt->color = BLACK;
@@ -270,37 +282,25 @@ public:
             mygrandparent->color = RED;
             reequilibrateTree(mygrandparent);
         }
-        // Case 4: Parent is left child of grandparent
         else if (myparent == mygrandparent->left)
         {
-        // Aunt is black and node is left->right "inner child" of its grandparent
-        // Let "parent" point to the new root node of the rotated sub-tree.
-        // It will be recolored in the next step.
             if (n == myparent->right)
             {
                 rotateLeft(myparent);
                 myparent = n;
             }
-        // Aunt is black and node is left->left "outer child" of its grandparent
             rotateRight(mygrandparent);
-        // Recolor original parent and grandparent
             myparent->color = BLACK;
             mygrandparent->color = RED;
         }
-        // Case 5: Parent is right child of grandparent
         else
         {
-        // Aunt is black and node is right->left "inner child" of its grandparent
-        // Let "parent" point to the new root node of the rotated sub-tree.
-        // It will be recolored in the next step.
             if (n == myparent->left)
             {
                 rotateRight(myparent);
                 myparent = n;
             }
-        // Aunt is black and node is right->right "outer child" of its grandparent
             rotateLeft(mygrandparent);
-        // Recolor original parent and grandparent
             myparent->color = BLACK;
             mygrandparent->color = RED;
         }
@@ -358,7 +358,6 @@ public:
                 }
             }
             std::cout << node->data << "(" << (node->color ? "RED" : "BLACK") << ")" << std::endl;
-            
             visualize(node->left, indent, false);
             visualize(node->right, indent, true);
         }
